@@ -1,0 +1,253 @@
+@import "tailwindcss";
+
+:root {
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-ink: #0D192B;
+  --color-muted: #64748B;
+  --color-line: #E2EAF2;
+  --color-canvas: #F0F5FA;
+  --color-brand: #1E6BFF;
+  --color-brand-cyan: #00D2FF;
+  --color-navy: #0D192B;
+  --color-navy-deep: #0B1727;
+}
+
+html, body, #root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: #F0F5FA;
+  color: #0D192B;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+input, select, textarea, button {
+  font-family: inherit;
+}
+
+/* Card design system according to Reference Image 1 */
+.card {
+  background: #FFFFFF;
+  border: 1px solid #E2EAF2;
+  border-radius: 16px;
+  box-shadow: 0 2px 14px -2px rgba(15, 30, 60, 0.04), 0 1px 3px rgba(15, 30, 60, 0.02);
+  transition: box-shadow 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+.card:hover {
+  box-shadow: 0 6px 20px -2px rgba(15, 30, 60, 0.07);
+}
+
+/* Input elements */
+.ww-input {
+  width: 100%;
+  margin-top: 6px;
+  border: 1px solid #E2EAF2;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 13px;
+  outline: none;
+  background: #FFFFFF;
+  color: #0D192B;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+.ww-input:focus {
+  border-color: #1E6BFF;
+  box-shadow: 0 0 0 3px rgba(30, 107, 255, 0.12);
+}
+
+/* Buttons */
+.btn-primary {
+  background: #1E6BFF;
+  color: #FFFFFF;
+  border-radius: 9999px;
+  padding: 10px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 14px rgba(30, 107, 255, 0.25);
+}
+.btn-primary:hover {
+  background: #1558db;
+  box-shadow: 0 6px 18px rgba(30, 107, 255, 0.35);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+.btn-primary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary {
+  background: #FFFFFF;
+  color: #0D192B;
+  border: 1px solid #E2EAF2;
+  border-radius: 9999px;
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 180ms ease;
+}
+.btn-secondary:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+}
+
+/* Page Stack Layout */
+.page-stack {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.page-stack > *,
+.page-stack .grid > * {
+  min-width: 0;
+}
+
+.recharts-responsive-container {
+  min-width: 0;
+}
+
+@media (max-width: 639px) {
+  .page-stack > .grid[class*="grid-cols-"] {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.22s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ===============================================================
+   LOGIN BACKGROUND AMBIENT ANIMATION EFFECTS
+   =============================================================== */
+
+@keyframes ambientDrift {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.65;
+  }
+  50% {
+    transform: translate(20px, -12px) scale(1.06);
+    opacity: 0.95;
+  }
+}
+
+@keyframes waveGlowPulse {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(1) translateY(0);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.03) translateY(-4px);
+  }
+}
+
+@keyframes waveLightShimmer {
+  0% {
+    transform: translateX(-100%) rotate(12deg);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.45;
+  }
+  65% {
+    opacity: 0.45;
+  }
+  100% {
+    transform: translateX(200%) rotate(12deg);
+    opacity: 0;
+  }
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-30px) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.animate-ambient-drift {
+  animation: ambientDrift 22s ease-in-out infinite;
+}
+
+.animate-wave-glow {
+  animation: waveGlowPulse 10s ease-in-out infinite;
+}
+
+.animate-wave-shimmer {
+  animation: waveLightShimmer 16s ease-in-out infinite;
+}
+
+.animate-particle {
+  animation: particleFloat 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ambient-drift,
+  .animate-wave-glow,
+  .animate-wave-shimmer,
+  .animate-particle {
+    animation: none !important;
+  }
+}

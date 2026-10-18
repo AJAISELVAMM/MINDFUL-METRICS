@@ -1,0 +1,31 @@
+# Environment & Secrets (NEVER COMMIT)
+.env
+.env.*
+*.env
+!.env.example
+
+# Python runtime & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.pytest_cache/
+
+# Local databases, dumps, and private backups (NEVER COMMIT)
+*.db
+*.sqlite
+*.sqlite3
+backups/
+backup_source/
+backup_mindfulmetrics_data.json
+live_db_backup_*.json
+restore_mindfulmetrics_data.sql
+*.sql
+*.dump
+*.log
+
+# Ensure model artifacts & datasets are tracked
+!models/*.joblib
+!models/*.json
+!datasets/*.csv

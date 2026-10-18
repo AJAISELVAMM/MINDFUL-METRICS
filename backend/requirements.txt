@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+PyJWT
+joblib
+scikit-learn==1.6.1
+pandas
+numpy
+python-multipart
+psycopg2-binary
+psycopg[binary]
+pytz
+httpx
+pytest
+# optional: sentence-transformers  # all-MiniLM-L6-v2 if the environment allows

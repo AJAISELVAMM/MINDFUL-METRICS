@@ -1,0 +1,63 @@
+{
+  "accuracy": 0.8266129032258065,
+  "precision_macro": 0.8231658692185008,
+  "recall_macro": 0.8262522247648105,
+  "f1_macro": 0.8236323095282959,
+  "classification_report": {
+    "HIGH_STRESS": {
+      "precision": 0.7763157894736842,
+      "recall": 0.855072463768116,
+      "f1-score": 0.8137931034482758,
+      "support": 69.0
+    },
+    "LOW_STRESS": {
+      "precision": 0.9431818181818182,
+      "recall": 0.8736842105263158,
+      "f1-score": 0.907103825136612,
+      "support": 95.0
+    },
+    "MODERATE_STRESS": {
+      "precision": 0.75,
+      "recall": 0.75,
+      "f1-score": 0.75,
+      "support": 84.0
+    },
+    "accuracy": 0.8266129032258065,
+    "macro avg": {
+      "precision": 0.8231658692185008,
+      "recall": 0.8262522247648105,
+      "f1-score": 0.8236323095282959,
+      "support": 248.0
+    },
+    "weighted avg": {
+      "precision": 0.8313228314554715,
+      "recall": 0.8266129032258065,
+      "f1-score": 0.8279297884109241,
+      "support": 248.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      83,
+      12,
+      0
+    ],
+    [
+      4,
+      63,
+      17
+    ],
+    [
+      1,
+      9,
+      59
+    ]
+  ],
+  "labels": [
+    "LOW_STRESS",
+    "MODERATE_STRESS",
+    "HIGH_STRESS"
+  ],
+  "dataset": "synthetic_v1",
+  "n": 1239
+}

@@ -1,0 +1,1240 @@
+text,stress_class,sentiment_class,source
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",LOW_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,LOW_STRESS,NEUTRAL,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",LOW_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",LOW_STRESS,NEUTRAL,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",LOW_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",LOW_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Constant context switching and urgent pings are draining my focus completely.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,LOW_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEGATIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Deadline is tomorrow and I am slightly behind on the last test cases.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Leave tomorrow is planned so I wrapped my handover notes today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Need another hour to finish the API contract after stand-up overflow.,LOW_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+A blocker on staging is unresolved but I have a workaround in mind.,HIGH_STRESS,NEUTRAL,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_aligned
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_aligned
+Energy is decent and the current sprint scope feels reasonable.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_aligned
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Been staying late all week and still the backlog keeps growing.,MODERATE_STRESS,NEGATIVE,synthetic_aligned
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,MODERATE_STRESS,POSITIVE,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_aligned
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_aligned
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_aligned
+Completed my assigned tasks and the workload feels manageable today.,LOW_STRESS,POSITIVE,synthetic_template
+Had a focused morning and finished the review without extra hours.,LOW_STRESS,POSITIVE,synthetic_template
+Team standup was brief and I have a clear plan for the afternoon.,LOW_STRESS,POSITIVE,synthetic_template
+Energy is decent and the current sprint scope feels reasonable.,LOW_STRESS,POSITIVE,synthetic_template
+Wrapped the ticket early and helped a teammate with a small question.,LOW_STRESS,POSITIVE,synthetic_template
+Meetings were light and I had time to document yesterday's change.,LOW_STRESS,POSITIVE,synthetic_template
+Feeling calm after a regular eight-hour day with no blockers.,LOW_STRESS,POSITIVE,synthetic_template
+Priorities are clear and I do not expect to stay late tonight.,LOW_STRESS,POSITIVE,synthetic_template
+ Pair programming went smoothly and we closed the bug before lunch.,LOW_STRESS,POSITIVE,synthetic_template
+Leave tomorrow is planned so I wrapped my handover notes today.,LOW_STRESS,POSITIVE,synthetic_template
+I have several tasks today and may need some extra time this evening.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Two reviews landed together so the afternoon will be tight.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Deadline is tomorrow and I am slightly behind on the last test cases.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Context switching between support and feature work is slowing me down.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Need another hour to finish the API contract after stand-up overflow.,MODERATE_STRESS,NEUTRAL,synthetic_template
+A blocker on staging is unresolved but I have a workaround in mind.,MODERATE_STRESS,NEUTRAL,synthetic_template
+"Workload is heavier than I expected this morning, still doable.",MODERATE_STRESS,NEUTRAL,synthetic_template
+Might slip one low-priority item to keep the release on track.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Stand-up ran long and I lost a chunk of deep-work time.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Feeling a bit stretched but the team can cover if I flag it early.,MODERATE_STRESS,NEUTRAL,synthetic_template
+I am overloaded with multiple urgent tasks and cannot keep up with the deadlines.,HIGH_STRESS,NEGATIVE,synthetic_template
+Three high-priority tickets landed at once and I am exhausted already.,HIGH_STRESS,NEGATIVE,synthetic_template
+Been staying late all week and still the backlog keeps growing.,HIGH_STRESS,NEGATIVE,synthetic_template
+I feel overwhelmed and frustrated that blockers are not getting unblocked.,HIGH_STRESS,NEGATIVE,synthetic_template
+Cannot finish this sprint scope without weekend work which I want to avoid.,HIGH_STRESS,NEGATIVE,synthetic_template
+Constant context switching and urgent pings are draining my focus completely.,HIGH_STRESS,NEGATIVE,synthetic_template
+I am struggling to meet today's deadline and the next one is already overlapping.,HIGH_STRESS,NEGATIVE,synthetic_template
+"Too many tasks, too little time, and I am not sleeping well because of it.",HIGH_STRESS,NEGATIVE,synthetic_template
+Support queue plus feature work is unsustainable this week.,HIGH_STRESS,NEGATIVE,synthetic_template
+I told my manager I am at capacity but more work was still assigned.,HIGH_STRESS,NEGATIVE,synthetic_template
+Shipped the patch and logged off on time.,LOW_STRESS,POSITIVE,synthetic_template
+"Quiet afternoon, no incidents on the board.",LOW_STRESS,POSITIVE,synthetic_template
+Need to juggle two reviews before EOD.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Slightly behind but the plan is still intact.,MODERATE_STRESS,NEUTRAL,synthetic_template
+I cannot keep this pace for another sprint.,HIGH_STRESS,NEGATIVE,synthetic_template
+Overtime every night is burning me out.,HIGH_STRESS,NEGATIVE,synthetic_template
+Grateful for the clearer priorities this week.,LOW_STRESS,POSITIVE,synthetic_template
+A bit anxious about tomorrow's demo.,MODERATE_STRESS,NEUTRAL,synthetic_template
+Blocked for hours and nobody is responding.,HIGH_STRESS,NEGATIVE,synthetic_template
