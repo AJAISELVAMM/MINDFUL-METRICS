@@ -1,16 +1,43 @@
 function getApiBaseUrl() {
-  const envUrl = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '')
+  const envUrl = (import.meta.env.VITE_API_BASE_URL || '').trim()
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1'
     if (isLocalhost) {
-      return 'http://localhost:8000'
+      return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:8000'
     }
     if (hostname.includes('trycloudflare.com')) {
       return ''
     }
   }
-  return envUrl || 'http://localhost:8000'
+  return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:8000'
+}
+
+export function buildApiUrl(path = '') {
+  const rawBase = getApiBaseUrl()
+
+  // Normalize base: strip trailing slashes and any trailing /api or /api/
+  // Ensures "https://mindful-metrics-api.onrender.com/api" becomes "https://mindful-metrics-api.onrender.com"
+  const normalizedBase = rawBase
+    .replace(/\/api\/?$/i, '')
+    .replace(/\/+$/, '')
+
+  // Normalize path: ensure leading slash
+  let cleanPath = path ? (path.startsWith('/') ? path : `/${path}`) : ''
+
+  // If path already starts with /api/ or is exactly /api, strip it to prevent duplicate /api
+  if (cleanPath.toLowerCase().startsWith('/api/')) {
+    cleanPath = cleanPath.slice(4)
+  } else if (cleanPath.toLowerCase() === '/api') {
+    cleanPath = ''
+  }
+
+  // If normalizedBase is empty (e.g. Cloudflare tunnel relative proxy routing)
+  if (!normalizedBase) {
+    return `/api${cleanPath}`
+  }
+
+  return `${normalizedBase}/api${cleanPath}`
 }
 
 function token() {
@@ -35,9 +62,9 @@ export function clearApiCache() {
 
 export async function getBackendStatus() {
   try {
-    const baseUrl = getApiBaseUrl()
+    const url = buildApiUrl('/health')
     const signal = typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined
-    const res = await fetch(`${baseUrl}/api/health`, { method: 'GET', signal })
+    const res = await fetch(url, { method: 'GET', signal })
     if (!res.ok) return { ok: false, status: 'Backend Unavailable' }
     const data = await res.json()
     return { ok: true, status: 'Backend Connected', data }
@@ -51,11 +78,11 @@ async function executeFetch(path, options, cacheKey, isGet, now) {
     const headers = { 'Content-Type': 'application/json', ...(options.headers || {}) }
     const t = token()
     if (t) headers.Authorization = `Bearer ${t}`
-    const baseUrl = getApiBaseUrl()
+    const url = buildApiUrl(path)
     
     // 15 second request timeout to avoid hanging connections
     const signal = options.signal || (typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined)
-    const res = await fetch(`${baseUrl}/api${path}`, { ...options, headers, signal })
+    const res = await fetch(url, { ...options, headers, signal })
 
     if (res.status === 401) {
       clearApiCache()
@@ -76,7 +103,11 @@ async function executeFetch(path, options, cacheKey, isGet, now) {
         throw new Error(parsed.detail || parsed.message || msg)
       } catch (parseErr) {
         if (parseErr.message && !parseErr.message.includes('JSON')) throw parseErr
-        throw new Error(msg || 'Request failed')
+        const isHtml = msg.trim().startsWith('<')
+        const fallbackMsg = isHtml
+          ? (res.status === 404 ? 'Resource not found' : res.status === 502 || res.status === 503 ? 'Backend service unavailable' : `Server error (${res.status})`)
+          : (msg || 'Request failed')
+        throw new Error(fallbackMsg)
       }
     }
 

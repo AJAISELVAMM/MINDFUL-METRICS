@@ -29,7 +29,7 @@ BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")
 _ALLOWED_ORIGINS = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173,https://*.trycloudflare.com",
+    "http://localhost:5173,http://127.0.0.1:5173,https://mindful-metrics-alpha.vercel.app,https://*.trycloudflare.com",
 )
 ALLOWED_ORIGINS = [origin.strip() for origin in _ALLOWED_ORIGINS.split(",") if origin.strip()]
 MODEL_DIR = os.getenv("MODEL_DIR", os.path.join(_ROOT, "models"))
