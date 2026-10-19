@@ -1,5 +1,9 @@
 function getApiBaseUrl() {
-  const envUrl = (import.meta.env.VITE_API_BASE_URL || '').trim()
+  const envUrl = (
+    (typeof import.meta !== 'undefined' && import.meta.env ? import.meta.env.VITE_API_BASE_URL : '') ||
+    (typeof process !== 'undefined' && process.env ? process.env.VITE_API_BASE_URL : '') ||
+    ''
+  ).trim()
   if (typeof window !== 'undefined') {
     const hostname = window.location.hostname
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1'
@@ -60,17 +64,136 @@ export function clearApiCache() {
   }
 }
 
-export async function getBackendStatus() {
+let lastHealthyTimestamp = 0
+let activeWakePromise = null
+
+export function isBackendWarm(ttlMs = 45000) {
+  return Date.now() - lastHealthyTimestamp < ttlMs
+}
+
+export function markBackendHealthy() {
+  lastHealthyTimestamp = Date.now()
+}
+
+export async function pingBackendHealth(timeoutMs = 10000) {
   try {
     const url = buildApiUrl('/health')
-    const signal = typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(8000) : undefined
-    const res = await fetch(url, { method: 'GET', signal })
-    if (!res.ok) return { ok: false, status: 'Backend Unavailable' }
-    const data = await res.json()
-    return { ok: true, status: 'Backend Connected', data }
-  } catch {
-    return { ok: false, status: 'Backend Unavailable' }
+    const signal =
+      typeof AbortSignal !== 'undefined' && AbortSignal.timeout
+        ? AbortSignal.timeout(timeoutMs)
+        : undefined
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: { Accept: 'application/json' },
+      signal,
+    })
+    if (res.ok) {
+      const data = await res.json().catch(() => ({}))
+      markBackendHealthy()
+      return { ok: true, status: res.status, data }
+    }
+    return { ok: false, status: res.status }
+  } catch (err) {
+    const isTimeout = err?.name === 'TimeoutError' || err?.name === 'AbortError'
+    return { ok: false, error: isTimeout ? 'timeout' : (err?.message || 'network error') }
   }
+}
+
+export async function ensureBackendReady(options = {}) {
+  const {
+    onProgress = null,
+    maxAttempts = 10,
+    initialDelayMs = 1500,
+    backoffFactor = 1.4,
+    maxDelayMs = 5000,
+    perAttemptTimeoutMs = 10000,
+    totalTimeoutMs = 75000,
+    force = false,
+  } = options
+
+  // 1. If backend was verified healthy within the freshness window, resolve immediately
+  if (!force && isBackendWarm()) {
+    return { ok: true, alreadyHealthy: true }
+  }
+
+  // 2. If a wake-up loop is already underway, attach to it
+  if (activeWakePromise) {
+    if (onProgress) {
+      onProgress('Connecting to server...')
+    }
+    return activeWakePromise
+  }
+
+  // 3. Run bounded retry loop with backoff
+  const startTime = Date.now()
+  activeWakePromise = (async () => {
+    let delay = initialDelayMs
+    let attempt = 0
+
+    while (attempt < maxAttempts) {
+      attempt++
+      const elapsed = Date.now() - startTime
+      if (elapsed >= totalTimeoutMs) {
+        break
+      }
+
+      if (onProgress) {
+        if (attempt === 1) {
+          onProgress('Connecting to server...')
+        } else {
+          onProgress(`Waking up cloud server (cold start)... attempt ${attempt}`)
+        }
+      }
+
+      const remainingTime = totalTimeoutMs - (Date.now() - startTime)
+      const timeoutForThisAttempt = Math.min(perAttemptTimeoutMs, Math.max(3000, remainingTime))
+
+      const probe = await pingBackendHealth(timeoutForThisAttempt)
+      if (probe.ok) {
+        markBackendHealthy()
+        if (onProgress) {
+          onProgress('Server connected! Processing...')
+        }
+        return { ok: true, attempts: attempt, durationMs: Date.now() - startTime }
+      }
+
+      const nextElapsed = Date.now() - startTime
+      if (attempt >= maxAttempts || nextElapsed >= totalTimeoutMs) {
+        break
+      }
+
+      const sleepTime = Math.min(delay, maxDelayMs, Math.max(500, totalTimeoutMs - nextElapsed))
+      await new Promise((r) => setTimeout(r, sleepTime))
+      delay = Math.round(delay * backoffFactor)
+    }
+
+    return {
+      ok: false,
+      error: 'Server is taking longer than expected to wake up. Please try again in a few moments.',
+      attempts: attempt,
+      durationMs: Date.now() - startTime,
+    }
+  })().finally(() => {
+    activeWakePromise = null
+  })
+
+  return activeWakePromise
+}
+
+export function wakeBackend() {
+  return ensureBackendReady({
+    maxAttempts: 8,
+    perAttemptTimeoutMs: 10000,
+    totalTimeoutMs: 70000,
+  }).catch(() => ({ ok: false }))
+}
+
+export async function getBackendStatus() {
+  const probe = await pingBackendHealth(8000)
+  if (probe.ok) {
+    return { ok: true, status: 'Backend Connected', data: probe.data }
+  }
+  return { ok: false, status: 'Backend Unavailable' }
 }
 
 async function executeFetch(path, options, cacheKey, isGet, now) {
@@ -80,11 +203,22 @@ async function executeFetch(path, options, cacheKey, isGet, now) {
     if (t) headers.Authorization = `Bearer ${t}`
     const url = buildApiUrl(path)
     
-    // 15 second request timeout to avoid hanging connections
+    // 15 second request timeout to avoid hanging connections (default, or custom signal)
     const signal = options.signal || (typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined)
     const res = await fetch(url, { ...options, headers, signal })
 
     if (res.status === 401) {
+      if (path.includes('/auth/login')) {
+        let errMessage = 'Invalid credentials'
+        try {
+          const msg = await res.text()
+          const parsed = JSON.parse(msg)
+          errMessage = parsed.detail || parsed.message || 'Invalid credentials'
+        } catch {}
+        const err = new Error(errMessage)
+        err.status = 401
+        throw err
+      }
       clearApiCache()
       localStorage.removeItem('mm_session')
       sessionStorage.removeItem('mm_session')
@@ -163,9 +297,15 @@ async function request(path, options = {}) {
 }
 
 // Auth
-export async function loginRequest(email, password) {
+export async function loginRequest(email, password, options = {}) {
   clearApiCache()
-  return request('/auth/login', { method: 'POST', body: JSON.stringify({ email, password }) })
+  const signal = options.signal || (typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined)
+  return request('/auth/login', {
+    method: 'POST',
+    body: JSON.stringify({ email, password }),
+    ...options,
+    signal,
+  })
 }
 
 export async function logoutRequest() {
