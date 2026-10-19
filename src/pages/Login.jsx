@@ -13,7 +13,6 @@ export default function Login() {
   const [remember, setRemember] = useState(true)
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [statusMessage, setStatusMessage] = useState('')
   const [isWaking, setIsWaking] = useState(false)
   const isSubmittingRef = useRef(false)
 
@@ -45,10 +44,7 @@ export default function Login() {
       // 1. If backend isn't verified warm yet, wait for health check with bounded retries
       if (!isBackendWarm()) {
         setIsWaking(true)
-        setStatusMessage('Connecting to server (Render free-tier cold start)...')
-        const ready = await ensureBackendReady({
-          onProgress: (msg) => setStatusMessage(msg),
-        })
+        const ready = await ensureBackendReady()
         if (!ready.ok) {
           setError(
             ready.error ||
@@ -60,7 +56,6 @@ export default function Login() {
 
       // 2. Submit the login request exactly once with user credentials
       setIsWaking(false)
-      setStatusMessage('Signing in...')
       const res = await login(email, password, remember)
       if (!res.ok) {
         setError(res.error || 'Invalid credentials')
@@ -81,7 +76,6 @@ export default function Login() {
     } finally {
       setLoading(false)
       setIsWaking(false)
-      setStatusMessage('')
       isSubmittingRef.current = false
     }
   }
@@ -250,14 +244,6 @@ export default function Login() {
                 Forgot password?
               </button>
             </div>
-
-            {/* Cold-start status message */}
-            {loading && statusMessage && (
-              <div className="mt-3 rounded-xl border border-blue-200 bg-blue-50/90 px-3 py-2 text-[12px] font-medium text-blue-700 flex items-center gap-2">
-                <span className="inline-block h-2 w-2 rounded-full bg-[#1E6BFF] animate-pulse shrink-0" />
-                <span>{statusMessage}</span>
-              </div>
-            )}
 
             {/* Error banner */}
             {error && (

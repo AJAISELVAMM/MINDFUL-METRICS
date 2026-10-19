@@ -210,6 +210,68 @@ test('Duplicate Submission Guard: Prevents concurrent multiple login requests', 
   assert.equal(results[2], 'duplicate_blocked')
 })
 
+test('In-Flight Deduplication: Multiple concurrent pingBackendHealth calls share single fetch', async () => {
+  const originalFetch = globalThis.fetch
+  let fetchCount = 0
+
+  try {
+    globalThis.fetch = async () => {
+      fetchCount++
+      await new Promise((r) => setTimeout(r, 50))
+      return new Response(JSON.stringify({ ok: true, status: 'ok' }), { status: 200 })
+    }
+
+    // Launch 3 simultaneous health pings
+    const [r1, r2, r3] = await Promise.all([
+      pingBackendHealth(2000),
+      pingBackendHealth(2000),
+      pingBackendHealth(2000),
+    ])
+
+    assert.equal(fetchCount, 1, 'Only one HTTP request should be sent for concurrent health pings')
+    assert.equal(r1.ok, true)
+    assert.equal(r2.ok, true)
+    assert.equal(r3.ok, true)
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
+
+test('In-Flight Deduplication: ensureBackendReady attaches to active wake loop without duplicate loop', async () => {
+  const originalFetch = globalThis.fetch
+  let fetchCount = 0
+
+  try {
+    globalThis.fetch = async () => {
+      fetchCount++
+      if (fetchCount === 1) {
+        return new Response('Waking...', { status: 503 })
+      }
+      return new Response(JSON.stringify({ ok: true, status: 'ok' }), { status: 200 })
+    }
+
+    // Start background wake loop
+    const wakePromise = ensureBackendReady({
+      force: true,
+      initialDelayMs: 40,
+      backoffFactor: 1.2,
+      maxDelayMs: 100,
+      totalTimeoutMs: 3000,
+    })
+
+    // Simulate user submitting login while wake loop is already in-flight
+    const attachPromise = ensureBackendReady()
+
+    const [wakeRes, attachRes] = await Promise.all([wakePromise, attachPromise])
+
+    assert.equal(wakeRes.ok, true)
+    assert.equal(attachRes.ok, true)
+    assert.equal(fetchCount, 2, 'Both promises should share the same retry loop')
+  } finally {
+    globalThis.fetch = originalFetch
+  }
+})
+
 test('Live Backend: Health check against deployed Render service', async () => {
   const liveHealthUrl = 'https://mindful-metrics-api.onrender.com/api/health'
   console.log(`Connecting to live Render backend: ${liveHealthUrl}...`)

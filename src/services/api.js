@@ -66,6 +66,7 @@ export function clearApiCache() {
 
 let lastHealthyTimestamp = 0
 let activeWakePromise = null
+let inFlightHealthPing = null
 
 export function isBackendWarm(ttlMs = 45000) {
   return Date.now() - lastHealthyTimestamp < ttlMs
@@ -76,36 +77,46 @@ export function markBackendHealthy() {
 }
 
 export async function pingBackendHealth(timeoutMs = 10000) {
-  try {
-    const url = buildApiUrl('/health')
-    const signal =
-      typeof AbortSignal !== 'undefined' && AbortSignal.timeout
-        ? AbortSignal.timeout(timeoutMs)
-        : undefined
-    const res = await fetch(url, {
-      method: 'GET',
-      headers: { Accept: 'application/json' },
-      signal,
-    })
-    if (res.ok) {
-      const data = await res.json().catch(() => ({}))
-      markBackendHealthy()
-      return { ok: true, status: res.status, data }
-    }
-    return { ok: false, status: res.status }
-  } catch (err) {
-    const isTimeout = err?.name === 'TimeoutError' || err?.name === 'AbortError'
-    return { ok: false, error: isTimeout ? 'timeout' : (err?.message || 'network error') }
+  if (inFlightHealthPing) {
+    return inFlightHealthPing
   }
+
+  inFlightHealthPing = (async () => {
+    try {
+      const url = buildApiUrl('/health')
+      const signal =
+        typeof AbortSignal !== 'undefined' && AbortSignal.timeout
+          ? AbortSignal.timeout(timeoutMs)
+          : undefined
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: { Accept: 'application/json' },
+        signal,
+      })
+      if (res.ok) {
+        const data = await res.json().catch(() => ({}))
+        markBackendHealthy()
+        return { ok: true, status: res.status, data }
+      }
+      return { ok: false, status: res.status }
+    } catch (err) {
+      const isTimeout = err?.name === 'TimeoutError' || err?.name === 'AbortError'
+      return { ok: false, error: isTimeout ? 'timeout' : (err?.message || 'network error') }
+    } finally {
+      inFlightHealthPing = null
+    }
+  })()
+
+  return inFlightHealthPing
 }
 
 export async function ensureBackendReady(options = {}) {
   const {
     onProgress = null,
-    maxAttempts = 10,
-    initialDelayMs = 1500,
-    backoffFactor = 1.4,
-    maxDelayMs = 5000,
+    maxAttempts = 35,
+    initialDelayMs = 600,
+    backoffFactor = 1.3,
+    maxDelayMs = 2000,
     perAttemptTimeoutMs = 10000,
     totalTimeoutMs = 75000,
     force = false,
@@ -162,8 +173,11 @@ export async function ensureBackendReady(options = {}) {
         break
       }
 
-      const sleepTime = Math.min(delay, maxDelayMs, Math.max(500, totalTimeoutMs - nextElapsed))
-      await new Promise((r) => setTimeout(r, sleepTime))
+      const remainingBeforeTimeout = Math.max(0, totalTimeoutMs - nextElapsed)
+      const sleepTime = Math.min(delay, maxDelayMs, remainingBeforeTimeout)
+      if (sleepTime > 0) {
+        await new Promise((r) => setTimeout(r, sleepTime))
+      }
       delay = Math.round(delay * backoffFactor)
     }
 
@@ -180,12 +194,8 @@ export async function ensureBackendReady(options = {}) {
   return activeWakePromise
 }
 
-export function wakeBackend() {
-  return ensureBackendReady({
-    maxAttempts: 8,
-    perAttemptTimeoutMs: 10000,
-    totalTimeoutMs: 70000,
-  }).catch(() => ({ ok: false }))
+export function wakeBackend(options = {}) {
+  return ensureBackendReady(options).catch(() => ({ ok: false }))
 }
 
 export async function getBackendStatus() {
