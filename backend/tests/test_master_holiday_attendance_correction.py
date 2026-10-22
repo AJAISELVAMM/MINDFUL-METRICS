@@ -159,7 +159,7 @@ def test_eight_pm_login_does_not_change_absent_attendance(client: TestClient, db
     SECTION 9: Website login at 8:00 PM is NOT attendance check-in.
     Attendance must remain ABSENT.
     """
-    emp = db.query(User).filter(User.role == "employee").first()
+    emp = db.query(User).filter(User.email == "vignesh@gmail.com").first() or db.query(User).filter(User.role == "employee").first()
     assert emp is not None
 
     test_date = date(2026, 6, 17)  # Wednesday
@@ -178,10 +178,15 @@ def test_eight_pm_login_does_not_change_absent_attendance(client: TestClient, db
     db.commit()
 
     # Employee logs into website at 8:00 PM
-    login_res = client.post("/api/auth/login", json={"email": emp.email, "password": "demo123"})
-    if login_res.status_code != 200:
-        login_res = client.post("/api/auth/login", json={"email": emp.email, "password": "Vignesh@123"})
-    assert login_res.status_code == 200
+    candidate_passwords = ["Vignesh@123", "demo123"]
+    if emp.name:
+        candidate_passwords.append(f"{emp.name.strip().split()[0].capitalize()}@123")
+    login_res = None
+    for pwd in candidate_passwords:
+        login_res = client.post("/api/auth/login", json={"email": emp.email, "password": pwd})
+        if login_res.status_code == 200:
+            break
+    assert login_res and login_res.status_code == 200
 
     # Verify attendance record is STILL ABSENT
     db.refresh(absent_rec)

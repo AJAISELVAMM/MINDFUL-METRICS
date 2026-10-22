@@ -24,7 +24,9 @@ export default function AppShell({ role, title, subtitle }) {
 
   if (!ready) return null
   if (!user) return <Navigate to="/login" replace />
-  if (user.role !== role) return <Navigate to="/unauthorized" replace />
+  const userRole = (user.role || '').trim().toLowerCase()
+  const expectedRole = (role || '').trim().toLowerCase()
+  if (userRole !== expectedRole) return <Navigate to="/unauthorized" replace />
 
   const items = NAV[role]
   return (

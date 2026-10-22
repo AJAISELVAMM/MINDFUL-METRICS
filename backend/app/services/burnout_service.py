@@ -501,10 +501,12 @@ def get_employee_core_metrics(db: Session, employee: User) -> dict:
             pass
 
     burnout_score = int(round(latest_pred.burnout_score)) if (latest_pred and latest_pred.burnout_score is not None) else None
-    if burnout_score is not None:
+    if latest_pred and latest_pred.risk_level:
+        risk_level = str(latest_pred.risk_level).strip().title()
+    elif burnout_score is not None:
         risk_level = (
-            "HIGH" if burnout_score >= 70
-            else ("MODERATE" if burnout_score >= 40 else "LOW")
+            "High" if burnout_score >= 70
+            else ("Moderate" if burnout_score >= 40 else "Low")
         )
     else:
         risk_level = "Unavailable"

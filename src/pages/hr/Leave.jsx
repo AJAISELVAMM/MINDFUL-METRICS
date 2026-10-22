@@ -32,7 +32,7 @@ export default function HRLeave() {
     setError('')
     try {
       const data = await getHRLeaves()
-      setRows(data)
+      setRows(Array.isArray(data) ? data : [])
     } catch (e) {
       setError(e.message || 'Could not load leave records.')
     } finally {

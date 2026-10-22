@@ -1,18 +1,42 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ChartCard from '../../components/common/ChartCard'
 import BurnoutTrendChart from '../../components/charts/BurnoutTrendChart'
 import StressTrendChart from '../../components/charts/StressTrendChart'
 import WorkloadChart from '../../components/charts/WorkloadChart'
 import ComparisonChart from '../../components/charts/ComparisonChart'
-import { burnoutTrend7, hoursWeek, stressTrend, expectedActualToday, communicationSentiment } from '../../data/chartData'
+import { getEmployeeTrends } from '../../services/api'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import LoadingSkeleton from '../../components/common/LoadingSkeleton'
 
 const filters = ['7 Days', '30 Days', '3 Months']
 
 export default function Trends() {
   const [f, setF] = useState('7 Days')
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    getEmployeeTrends()
+      .then(setData)
+      .catch(() => {})
+      .finally(() => setLoading(false))
+  }, [])
+
+  if (loading) return <LoadingSkeleton rows={2} />
+
   const count = f === '7 Days' ? 7 : f === '30 Days' ? 30 : 90
-  const expand = (data) => Array.from({ length: count }, (_, i) => ({ ...data[i % data.length], day: `${i + 1}` }))
+  const expand = (list) => {
+    if (!list || !list.length) return []
+    if (f === '7 Days') return list
+    return Array.from({ length: count }, (_, i) => ({ ...list[i % list.length], day: `${i + 1}` }))
+  }
+
+  const burnoutData = data?.burnoutTrend7 || []
+  const stressData = data?.stressTrend || []
+  const hoursData = data?.hoursWeek || []
+  const eaData = data?.expectedActualToday || []
+  const commSent = data?.communicationSentiment || []
+
   return (
     <div className="page-stack fade-in">
       <div className="flex gap-2">
@@ -21,14 +45,14 @@ export default function Trends() {
         ))}
       </div>
       <div className="grid gap-3 lg:grid-cols-2">
-        <ChartCard title="Burnout Risk"><BurnoutTrendChart data={expand(burnoutTrend7)} /></ChartCard>
-        <ChartCard title="Stress"><StressTrendChart data={expand(stressTrend)} /></ChartCard>
-        <ChartCard title="Working Hours"><WorkloadChart data={expand(hoursWeek)} /></ChartCard>
-        <ChartCard title="Expected vs Actual Workload"><ComparisonChart data={expectedActualToday} /></ChartCard>
-        <ChartCard title="Expected vs Actual Stress"><ComparisonChart data={expectedActualToday.filter((d) => d.metric !== 'Difficulty')} /></ChartCard>
+        <ChartCard title="Burnout Risk"><BurnoutTrendChart data={expand(burnoutData)} /></ChartCard>
+        <ChartCard title="Stress"><StressTrendChart data={expand(stressData)} /></ChartCard>
+        <ChartCard title="Working Hours"><WorkloadChart data={expand(hoursData)} /></ChartCard>
+        <ChartCard title="Expected vs Actual Workload"><ComparisonChart data={eaData} /></ChartCard>
+        <ChartCard title="Expected vs Actual Stress"><ComparisonChart data={eaData.filter((d) => d.metric !== 'Difficulty')} /></ChartCard>
         <ChartCard title="Communication Sentiment" subtitle="Aggregated indicators only">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={communicationSentiment}>
+            <AreaChart data={commSent}>
               <CartesianGrid stroke="#eef2f7" vertical={false} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
               <YAxis width={28} tick={{ fontSize: 11 }} />

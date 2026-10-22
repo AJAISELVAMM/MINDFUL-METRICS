@@ -49,7 +49,7 @@ def test_01_survey_submission_triggers_burnout_analysis():
     token = get_auth_token("employee")
     headers = {"Authorization": f"Bearer {token}"}
     db = SessionLocal()
-    emp = db.query(User).filter(User.role == "employee").first()
+    emp = db.query(User).filter(User.email == ROLE_MAP["employee"][0]).first() or db.query(User).filter(User.role == "employee").first()
     
     # Record current count of predictions
     initial_count = db.query(Prediction).filter(Prediction.employee_id == emp.id).count()
@@ -119,7 +119,7 @@ def test_02_task_progress_updates_derived_features():
 def test_03_task_completion_triggers_prediction():
     """3. Task completion triggers an updated prediction."""
     db = SessionLocal()
-    emp = db.query(User).filter(User.role == "employee").first()
+    emp = db.query(User).filter(User.email == ROLE_MAP["employee"][0]).first() or db.query(User).filter(User.role == "employee").first()
     
     task = Task(
         name="Test Task For Completion Trigger",

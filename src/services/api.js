@@ -8,7 +8,10 @@ function getApiBaseUrl() {
     const hostname = window.location.hostname
     const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1'
     if (isLocalhost) {
-      return envUrl ? envUrl.replace(/\/$/, '') : 'http://localhost:8000'
+      if (envUrl && !envUrl.includes('trycloudflare.com')) {
+        return envUrl.replace(/\/$/, '')
+      }
+      return 'http://localhost:8000'
     }
     if (hostname.includes('trycloudflare.com')) {
       return ''
@@ -658,6 +661,10 @@ export async function getBurnoutAnalysis() {
 
 export async function getBurnoutTrends() {
   return request('/burnout/trend')
+}
+
+export async function getEmployeeTrends() {
+  return request('/employee/trends')
 }
 
 export async function getRecommendations() {

@@ -252,6 +252,20 @@ def get_canonical_attendance_status(
     - PENDING
     - EXCEPTION
     """
+    if isinstance(is_holiday, tuple):
+        is_holiday = bool(is_holiday[0])
+    else:
+        is_holiday = bool(is_holiday)
+
+    if isinstance(is_weekly_off, tuple):
+        is_weekly_off = bool(is_weekly_off[0])
+    else:
+        is_weekly_off = bool(is_weekly_off)
+
+    has_leave = bool(has_leave)
+    is_future = bool(is_future)
+    is_today_open = bool(is_today_open)
+
     from .holiday_service import is_weekly_off as check_sunday
     if att and att.date and check_sunday(att.date):
         is_weekly_off = True

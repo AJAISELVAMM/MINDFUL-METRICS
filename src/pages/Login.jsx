@@ -22,10 +22,11 @@ export default function Login() {
   }, [])
 
   if (user) {
+    const r = (user.role || '').trim().toLowerCase()
     const path =
-      user.role === 'manager'
+      r === 'manager'
         ? '/manager/dashboard'
-        : user.role === 'hr'
+        : r === 'hr'
         ? '/hr/dashboard'
         : '/employee/dashboard'
     return <Navigate to={path} replace />
@@ -63,7 +64,7 @@ export default function Login() {
       }
 
       // 3. Navigate to dashboard based on role
-      const r = res.session?.role || res.user?.role
+      const r = (res.session?.role || res.user?.role || '').trim().toLowerCase()
       nav(
         r === 'manager'
           ? '/manager/dashboard'

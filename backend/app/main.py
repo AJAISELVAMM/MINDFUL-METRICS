@@ -571,30 +571,24 @@ def _get_user_charts_data(user: User, db: Session) -> dict:
             ot = 0.0
         hours_week.append({"day": day_name, "hours": h, "ot": ot})
 
-    # Real Burnout Trend from actual Prediction records
-    preds = (
+    # Real Burnout Trend from actual Prediction records (mapped strictly to 7 days)
+    all_user_preds = (
         db.query(Prediction)
-        .filter(Prediction.employee_id == user.id, Prediction.prediction_date >= datetime.combine(days[0], time.min))
+        .filter(Prediction.employee_id == user.id)
         .order_by(Prediction.id.asc())
         .all()
     )
-    if not preds:
-        preds = (
-            db.query(Prediction)
-            .filter(Prediction.employee_id == user.id)
-            .order_by(Prediction.id.desc())
-            .limit(7)
-            .all()
-        )
-        preds = list(reversed(preds))
+    preds_by_date = {}
+    for p in all_user_preds:
+        if p.prediction_date:
+            preds_by_date[p.prediction_date.date()] = p
 
-    burnout_trend = [
-        {
-            "day": p.prediction_date.strftime("%a") if p.prediction_date else f"D{i+1}",
-            "value": round(p.burnout_score) if p.burnout_score is not None else 0
-        }
-        for i, p in enumerate(preds)
-    ]
+    last_val = 50
+    burnout_trend = []
+    for d in days:
+        if d in preds_by_date:
+            last_val = round(preds_by_date[d].burnout_score) if preds_by_date[d].burnout_score is not None else last_val
+        burnout_trend.append({"day": d.strftime("%a"), "value": last_val})
 
     # Real Stress & Workload Trend from actual Survey records
     surveys = (
@@ -801,7 +795,14 @@ def emp_att(user: User = Depends(current_user), db: Session = Depends(get_db)):
 @app.get("/api/attendance/team")
 @app.get("/api/manager/attendance")
 def mgr_att(user: User = Depends(require_role("manager", "hr")), db: Session = Depends(get_db)):
-    today = date.today()
+    settings = get_company_settings(db)
+    now = get_current_time(settings.timezone)
+    today = now.date()
+    from .services.holiday_service import is_holiday as check_holiday, is_weekly_off as check_sunday
+    is_h, hol_obj = check_holiday(db, today, calendar_type="company")
+    is_sunday = check_sunday(today)
+    is_today_open = (now.time() < time(19, 0))
+
     if user.role == "hr":
         team_members = db.query(User).filter(User.role == "employee").all()
     else:
@@ -818,13 +819,29 @@ def mgr_att(user: User = Depends(require_role("manager", "hr")), db: Session = D
         if not team_members:
             team_members = db.query(User).filter(User.department == user.department, User.role == "employee").all()
 
+    approved_leaves = db.query(LeaveRequest).filter(
+        LeaveRequest.status == "Approved",
+        or_(
+            LeaveRequest.date.like(f"%{today}%"),
+            (LeaveRequest.start_date <= today) & (LeaveRequest.end_date >= today),
+        ),
+    ).all()
+    on_leave_users = {l.employee_id for l in approved_leaves}
+
     rows = []
     for m in team_members:
         rec = db.query(Attendance).filter(Attendance.employee_id == m.id, Attendance.date == today).first()
         h = rec.working_minutes // 60 if (rec and rec.working_minutes) else 0
         m_min = rec.working_minutes % 60 if (rec and rec.working_minutes) else 0
         hours_str = f"{h:02d}h {m_min:02d}m" if (rec and rec.working_minutes) else "—"
-        canon_status, disp_status, _ = get_canonical_attendance_status(rec)
+        canon_status, disp_status, _ = get_canonical_attendance_status(
+            rec,
+            is_holiday=is_h,
+            is_weekly_off=is_sunday,
+            has_leave=(m.id in on_leave_users),
+            is_future=False,
+            is_today_open=is_today_open,
+        )
         rows.append({
             "name": m.name,
             "status": canon_status,
@@ -845,7 +862,8 @@ def hr_att(
     user: User = Depends(require_role("hr")),
     db: Session = Depends(get_db),
 ):
-    now = get_current_time()
+    settings = get_company_settings(db)
+    now = get_current_time(settings.timezone)
     today = now.date()
     target_d = today
     if date_str:
@@ -872,7 +890,7 @@ def hr_att(
     on_leave_users = {l.employee_id for l in approved_leaves}
 
     from .services.holiday_service import is_holiday as check_holiday, is_weekly_off as check_sunday
-    is_h = check_holiday(db, target_d)
+    is_h, hol_obj = check_holiday(db, target_d, calendar_type="company")
     is_sunday = check_sunday(target_d)
     is_future = target_d > today
     is_today_open = (target_d == today and now.time() < time(19, 0))

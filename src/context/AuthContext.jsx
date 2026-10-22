@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
       if (raw) {
         const s = JSON.parse(raw)
         if (s.token && s.role) {
+          s.role = String(s.role).trim().toLowerCase()
           setUser(s)
           getMe()
             .then((meData) => {
@@ -28,6 +29,7 @@ export function AuthProvider({ children }) {
                   const updated = {
                     ...curr,
                     id: meData.id || curr.id,
+                    role: (meData.role || curr.role || '').trim().toLowerCase(),
                     name: meData.name || curr.name,
                     phone: meData.phone || curr.phone,
                     department: meData.department || curr.department,
@@ -62,7 +64,7 @@ export function AuthProvider({ children }) {
       const session = {
         id: data.user.id,
         email: data.user.email,
-        role: data.user.role,
+        role: String(data.user.role || '').trim().toLowerCase(),
         name: data.user.name,
         department: data.user.department,
         employeeId: data.user.employeeId,

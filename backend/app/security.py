@@ -52,8 +52,10 @@ def current_user(
 
 
 def require_role(*roles):
+    allowed = {r.strip().lower() for r in roles}
     def _inner(user: User = Depends(current_user)):
-        if user.role not in roles:
+        user_role = (user.role or "").strip().lower()
+        if user_role not in allowed:
             raise HTTPException(403, "Insufficient permissions")
         return user
     return _inner
