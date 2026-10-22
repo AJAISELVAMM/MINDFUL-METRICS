@@ -32,15 +32,10 @@ export default function ManagerBurnout() {
   const mod = data?.modRisk ?? members.filter((m) => m.status === 'Moderate').length
   const warnings = data?.warnings?.length || high
 
-  const burnoutTrend7 = [
-    { day: 'Mon', value: Math.max(30, avgBurnout - 4) },
-    { day: 'Tue', value: Math.max(30, avgBurnout - 2) },
-    { day: 'Wed', value: Math.max(30, avgBurnout + 1) },
-    { day: 'Thu', value: Math.max(30, avgBurnout) },
-    { day: 'Fri', value: Math.max(30, avgBurnout + 2) },
-    { day: 'Sat', value: Math.max(30, avgBurnout - 3) },
-    { day: 'Sun', value: Math.max(30, avgBurnout - 1) },
-  ]
+  const burnoutTrend7 = data?.burnoutTrend7 || []
+  const sTrend = data?.stressTrend || stressTrend
+  const eaData = data?.expectedActualToday || expectedActualToday
+  const commSent = data?.communicationSentiment || communicationSentiment
 
   const dist = data?.dist || [
     { name: 'High', value: high, fill: '#ef4444' },
@@ -64,14 +59,14 @@ export default function ManagerBurnout() {
           <BurnoutTrendChart data={burnoutTrend7} />
         </ChartCard>
         <ChartCard title="Stress Trend">
-          <StressTrendChart data={stressTrend} />
+          <StressTrendChart data={sTrend} />
         </ChartCard>
         <ChartCard title="Expected vs Actual Workload">
-          <ComparisonChart data={expectedActualToday} />
+          <ComparisonChart data={eaData} />
         </ChartCard>
         <ChartCard title="Communication Sentiment" subtitle="Aggregated team indicators (privacy-preserved)">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={communicationSentiment}>
+            <AreaChart data={commSent}>
               <CartesianGrid stroke="#eef2f7" vertical={false} />
               <XAxis dataKey="week" tick={{ fontSize: 11 }} />
               <YAxis width={24} />

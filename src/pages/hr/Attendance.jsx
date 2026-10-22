@@ -21,12 +21,13 @@ export default function HRAttendance() {
   const [successMsg, setSuccessMsg] = useState('')
   const [filterDept, setFilterDept] = useState('All')
   const [filterStatus, setFilterStatus] = useState('All')
+  const [filterDate, setFilterDate] = useState(() => new Date().toISOString().split('T')[0])
   const [activeTab, setActiveTab] = useState('log') // 'log', 'corrections', 'holidays'
   const [actionBusy, setActionBusy] = useState(false)
 
   useEffect(() => {
     loadAllData()
-  }, [filterDept, filterStatus])
+  }, [filterDept, filterStatus, filterDate])
 
   async function loadAllData() {
     setLoading(true)
@@ -36,6 +37,7 @@ export default function HRAttendance() {
         getHRAttendance({
           department: filterDept !== 'All' ? filterDept : undefined,
           status: filterStatus !== 'All' ? filterStatus : undefined,
+          date: filterDate,
         }),
         getAttendanceCorrections().catch(() => []),
         getHolidays().catch(() => []),
@@ -84,11 +86,23 @@ export default function HRAttendance() {
     }
   }
 
-  const presentCount = rows.filter((r) => r.status === 'Present').length
-  const absentCount = rows.filter((r) => r.status === 'Absent').length
-  const lateCount = rows.filter((r) => r.status.includes('Late') || r.status.includes('Half')).length
-  const leaveCount = rows.filter((r) => r.status === 'On Leave').length
-  const pendingCorrectionsCount = corrections.filter((c) => c.status === 'Pending').length
+  const isPresent = (r) => r.status === 'PRESENT' || r.display_status === 'Present' || r.status === 'Present'
+  const isAbsent = (r) => r.status === 'ABSENT' || r.display_status === 'Absent' || r.status === 'Absent'
+  const isLateOrException = (r) =>
+    r.status === 'LATE' ||
+    r.status === 'HALF_DAY' ||
+    r.status === 'EXCEPTION' ||
+    r.status?.includes('Late') ||
+    r.status?.includes('Half') ||
+    r.display_status?.includes('Late') ||
+    r.display_status?.includes('Half')
+
+  const presentCount = rows.filter(isPresent).length
+  const absentCount = rows.filter(isAbsent).length
+  const lateCount = rows.filter(isLateOrException).length
+  const pendingCorrectionsCount = corrections.filter((c) => c.status?.toUpperCase() === 'PENDING').length
+
+  const isToday = filterDate === new Date().toISOString().split('T')[0]
 
   return (
     <div className="page-stack fade-in">
@@ -101,7 +115,7 @@ export default function HRAttendance() {
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
         <StatCard label="Total Monitored" value={rows.length} tone="blue" />
-        <StatCard label="Present Today" value={presentCount} tone="low" />
+        <StatCard label={isToday ? "Present Today" : "Present"} value={presentCount} tone="low" />
         <StatCard label="Absent" value={absentCount} />
         <StatCard label="Late / Exceptions" value={lateCount} tone="mod" />
         <StatCard label="Pending Corrections" value={pendingCorrectionsCount} tone={pendingCorrectionsCount > 0 ? 'mod' : 'default'} />
@@ -151,6 +165,12 @@ export default function HRAttendance() {
                 Organization Attendance Log
               </p>
               <div className="flex flex-wrap gap-2">
+                <input
+                  type="date"
+                  value={filterDate}
+                  onChange={(e) => setFilterDate(e.target.value)}
+                  className="ww-input mt-0 text-xs max-w-[130px]"
+                />
                 <select
                   value={filterDept}
                   onChange={(e) => setFilterDept(e.target.value)}

@@ -391,6 +391,7 @@ export async function getHRAttendance(params = {}) {
   const query = new URLSearchParams()
   if (params.department) query.set('department', params.department)
   if (params.status) query.set('status', params.status)
+  if (params.date) query.set('date', params.date)
   const qs = query.toString()
   return request(`/attendance/all${qs ? `?${qs}` : ''}`)
 }
@@ -672,8 +673,8 @@ export async function getTeamMembers() {
   return request('/manager/team')
 }
 
-export async function getManagerTrends() {
-  return request('/manager/trends')
+export async function getManagerTrends(days = 7) {
+  return request(`/manager/trends?days=${days}`)
 }
 
 // HR

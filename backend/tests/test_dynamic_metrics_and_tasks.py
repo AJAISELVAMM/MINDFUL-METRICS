@@ -35,6 +35,8 @@ def test_employee(db):
         db.refresh(user)
     yield user
     # Teardown
+    from app.models import AuditLog
+    db.query(AuditLog).filter(AuditLog.actor_id == user.id).delete(synchronize_session=False)
     db.query(Task).filter(Task.employee_id == user.id).delete(synchronize_session=False)
     db.query(Survey).filter(Survey.employee_id == user.id).delete(synchronize_session=False)
     db.query(Prediction).filter(Prediction.employee_id == user.id).delete(synchronize_session=False)
@@ -61,6 +63,8 @@ def other_employee(db):
         db.refresh(user)
     yield user
     # Teardown
+    from app.models import AuditLog
+    db.query(AuditLog).filter(AuditLog.actor_id == user.id).delete(synchronize_session=False)
     db.query(Task).filter(Task.employee_id == user.id).delete(synchronize_session=False)
     db.query(Survey).filter(Survey.employee_id == user.id).delete(synchronize_session=False)
     db.query(Prediction).filter(Prediction.employee_id == user.id).delete(synchronize_session=False)

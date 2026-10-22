@@ -50,23 +50,8 @@ export default function ManagerDashboard() {
     ? (members.reduce((s, m) => s + (m.hours || 8.5), 0) / members.length).toFixed(1)
     : 8.5
 
-  const hoursWeek = [
-    { day: 'Mon', hours: Number(avgHours) },
-    { day: 'Tue', hours: Number(avgHours) + 0.2 },
-    { day: 'Wed', hours: Number(avgHours) - 0.1 },
-    { day: 'Thu', hours: Number(avgHours) },
-    { day: 'Fri', hours: Number(avgHours) - 0.3 },
-  ]
-
-  const burnoutTrend7 = [
-    { day: 'Mon', value: Math.max(30, (data.highRisk || 2) * 15 + 20) },
-    { day: 'Tue', value: Math.max(30, (data.highRisk || 2) * 15 + 22) },
-    { day: 'Wed', value: Math.max(30, (data.highRisk || 2) * 15 + 24) },
-    { day: 'Thu', value: Math.max(30, (data.highRisk || 2) * 15 + 21) },
-    { day: 'Fri', value: Math.max(30, (data.highRisk || 2) * 15 + 23) },
-    { day: 'Sat', value: Math.max(30, (data.highRisk || 2) * 15 + 18) },
-    { day: 'Sun', value: Math.max(30, (data.highRisk || 2) * 15 + 19) },
-  ]
+  const hoursWeek = data?.hoursWeek || []
+  const burnoutTrend7 = data?.burnoutTrend7 || []
 
   return (
     <div className="page-stack fade-in">

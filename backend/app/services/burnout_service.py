@@ -468,3 +468,183 @@ def recalculate_employee_burnout(
     result["trigger_source"] = trigger_source
     return result
 
+
+def get_employee_core_metrics(db: Session, employee: User) -> dict:
+    """
+    Authoritative single source of truth for individual employee metrics.
+    Guarantees consistent, database-backed calculation across:
+    1. Employee Dashboard (_kpis_for)
+    2. HR Employee Detail Drawer (get_user_full_details)
+    3. Manager Employee Detail Drawer (get_user_full_details)
+    4. HR Employees Table (hr_emp)
+    5. Manager Team Dashboard (mgr_dash)
+    6. Manager Team Workload Table (get_team_workload_metrics)
+    """
+    # 1. Prediction / Burnout
+    latest_pred = (
+        db.query(Prediction)
+        .filter(Prediction.employee_id == employee.id)
+        .order_by(Prediction.id.desc())
+        .first()
+    )
+    if not latest_pred:
+        try:
+            pred_gen = predict_for_employee(db, employee, persist=True)
+            if not pred_gen.get("insufficient_data"):
+                latest_pred = (
+                    db.query(Prediction)
+                    .filter(Prediction.employee_id == employee.id)
+                    .order_by(Prediction.id.desc())
+                    .first()
+                )
+        except Exception:
+            pass
+
+    burnout_score = int(round(latest_pred.burnout_score)) if (latest_pred and latest_pred.burnout_score is not None) else None
+    if burnout_score is not None:
+        risk_level = (
+            "HIGH" if burnout_score >= 70
+            else ("MODERATE" if burnout_score >= 40 else "LOW")
+        )
+    else:
+        risk_level = "Unavailable"
+
+    # 2. Features snapshot & latest survey answers
+    latest_bf = (
+        db.query(BurnoutFeatures)
+        .filter(BurnoutFeatures.employee_id == employee.id)
+        .order_by(BurnoutFeatures.id.desc())
+        .first()
+    )
+    feat_dict = latest_bf.features if latest_bf and isinstance(latest_bf.features, dict) else {}
+
+    latest_survey = (
+        db.query(Survey)
+        .filter(Survey.employee_id == employee.id)
+        .order_by(Survey.id.desc())
+        .first()
+    )
+    survey_ans = latest_survey.answers if latest_survey and isinstance(latest_survey.answers, dict) else {}
+
+    # 3. Authoritative Task records
+    tasks = db.query(Task).filter(Task.employee_id == employee.id).all()
+    total_tasks = len(tasks)
+    completed_tasks = [t for t in tasks if t.status in ("Completed", "Done")]
+    active_tasks = [t for t in tasks if t.status not in ("Completed", "Done")]
+    blocked_tasks = [t for t in tasks if t.status == "Blocked" or (t.blocked_reason and t.status not in ("Completed", "Done"))]
+    overdue_tasks = [t for t in tasks if t.status == "Overdue"]
+    completion_rate = round(len(completed_tasks) / total_tasks * 100) if total_tasks else 0
+
+    # 4. Workload Score (consistent dynamic formulation)
+    if "workload" in survey_ans:
+        base_wl = float(survey_ans["workload"]) * 20.0
+    elif "manageable" in survey_ans:
+        base_wl = (6.0 - float(survey_ans["manageable"])) * 20.0
+    elif feat_dict.get("workload_score") is not None:
+        base_wl = float(feat_dict["workload_score"])
+    elif burnout_score is not None:
+        base_wl = float(burnout_score)
+    else:
+        base_wl = 50.0
+
+    if tasks:
+        wl_dev = min(30.0, max(-30.0, (len(active_tasks) - 3) * 6.0))
+        workload_score = int(round(min(100.0, max(0.0, base_wl + wl_dev))))
+    elif feat_dict.get("workload_score") is not None:
+        workload_score = int(round(float(feat_dict["workload_score"])))
+    elif survey_ans:
+        workload_score = int(round(min(100.0, max(0.0, base_wl))))
+    elif burnout_score is not None:
+        workload_score = int(round(min(100.0, max(20.0, burnout_score * 0.85))))
+    else:
+        workload_score = None
+
+    # 5. Recent Attendance for working hours, overtime, and work-life balance
+    recent_att = (
+        db.query(Attendance)
+        .filter(Attendance.employee_id == employee.id)
+        .order_by(Attendance.date.desc())
+        .limit(14)
+        .all()
+    )
+    valid_att = [a for a in recent_att if a.working_minutes and a.working_minutes > 0]
+    if valid_att:
+        avg_minutes = sum(a.working_minutes for a in valid_att) / len(valid_att)
+        working_hours_num = round(avg_minutes / 60.0, 1)
+        working_hours_display = f"{working_hours_num}h"
+        ot_minutes = sum(a.overtime_minutes or 0 for a in valid_att) / len(valid_att)
+        ot_hours_num = round(ot_minutes / 60.0, 1)
+    elif feat_dict.get("working_hours") is not None:
+        working_hours_num = round(float(feat_dict["working_hours"]), 1)
+        working_hours_display = f"{working_hours_num}h"
+        ot_hours_num = round(float(feat_dict.get("overtime_hours", 0)), 1)
+    else:
+        working_hours_num = None
+        working_hours_display = None
+        ot_hours_num = 0.0
+
+    # 6. Work-Life Balance Score
+    if "wlb" in survey_ans:
+        wlb_score = int(round(float(survey_ans["wlb"]) * 20.0))
+    elif feat_dict.get("work_life_balance_score") is not None:
+        wlb_score = int(round(float(feat_dict["work_life_balance_score"])))
+    elif recent_att or burnout_score is not None:
+        recent_ot_h = (
+            sum((a.overtime_minutes or 0) for a in recent_att) / max(len(recent_att), 1) / 60.0
+            if recent_att else 0.0
+        )
+        base_s = float(burnout_score if burnout_score is not None else 50.0)
+        wlb_score = int(round(max(20.0, min(100.0, 100.0 - (base_s * 0.5) - (recent_ot_h * 5.0)))))
+    else:
+        wlb_score = None
+
+    # 7. Stress Score
+    if "stress" in survey_ans:
+        stress_score = int(round(float(survey_ans["stress"]) * 20.0))
+    elif feat_dict.get("stress_score") is not None:
+        stress_score = int(round(float(feat_dict["stress_score"])))
+    elif burnout_score is not None:
+        stress_score = int(round(min(100.0, max(20.0, burnout_score * 0.92))))
+    else:
+        stress_score = None
+
+    # 8. Factors and recommendations
+    factors = [
+        {"name": f.get("feature", f.get("name", "")).replace("_", " ").title(), "impact": f.get("importance", 0)}
+        for f in (latest_pred.top_factors or [])
+    ] if latest_pred else []
+
+    recs_list = (latest_pred.recommendations or []) if latest_pred else []
+    if not recs_list and latest_pred and latest_pred.top_factors:
+        recs_list = recommendations_from_factors(latest_pred.top_factors, risk_level)
+
+    pred_time = getattr(latest_pred, "prediction_date", None) or getattr(latest_pred, "created_at", None)
+
+    return {
+        "user_id": employee.id,
+        "employee_code": employee.employee_code or f"E{employee.id}",
+        "name": employee.name,
+        "department": employee.department or "Engineering",
+        "role": employee.role or "employee",
+        "burnout_score": burnout_score,
+        "risk_level": risk_level,
+        "stress_score": stress_score,
+        "workload_score": workload_score,
+        "wlb_score": wlb_score,
+        "working_hours_num": working_hours_num,
+        "working_hours_display": working_hours_display,
+        "overtime_hours_num": ot_hours_num,
+        "total_tasks": total_tasks,
+        "active_tasks": len(active_tasks),
+        "completed_tasks": len(completed_tasks),
+        "blocked_tasks": len(blocked_tasks),
+        "overdue_tasks": len(overdue_tasks),
+        "completion_rate": completion_rate,
+        "prediction_timestamp": pred_time.strftime("%d %b %Y, %I:%M %p") if pred_time else None,
+        "risk_factors": factors,
+        "recommendations": recs_list,
+        "explanation": getattr(latest_pred, "explanation", None) or (recs_list[0] if recs_list else ""),
+        "has_prediction": latest_pred is not None and burnout_score is not None,
+    }
+
+

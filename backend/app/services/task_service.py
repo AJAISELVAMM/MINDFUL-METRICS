@@ -1,8 +1,8 @@
 from __future__ import annotations
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
-from ..models import Task, User, Communication, TaskUnblockRequest, Notification
+from ..models import Task, User, Communication, TaskUnblockRequest, Notification, Attendance, Survey
 from .audit_service import log_audit
 from .semantic_service import analyze_communication
 
@@ -238,16 +238,34 @@ def get_user_tasks(db: Session, user: User) -> dict:
             "active_unblock_request": active_req,
         })
 
-    completed = sum(1 for t in tasks if t.status == "Completed")
+    completed = sum(1 for t in tasks if t.status in ("Completed", "Done"))
     almost_completed = sum(1 for t in tasks if t.status == "Almost Completed")
     in_progress = sum(1 for t in tasks if t.status == "In Progress")
     not_started = sum(1 for t in tasks if t.status in ("Not Started", "Pending"))
-    blocked = sum(1 for t in tasks if t.status == "Blocked")
+    blocked = sum(1 for t in tasks if t.status == "Blocked" or (t.blocked_reason and t.status not in ("Completed", "Done")))
     overdue = sum(1 for t in tasks if t.status == "Overdue")
     pending = not_started + in_progress + almost_completed
     n = max(len(tasks), 1)
 
-    high_pri = sum(1 for t in tasks if t.priority == "High")
+    high_pri = sum(1 for t in tasks if t.priority in ("High", "Urgent"))
+
+    today_d = date.today()
+    monday = today_d - timedelta(days=today_d.weekday())
+    week_dates = [monday + timedelta(days=i) for i in range(5)]
+    week_atts = {
+        a.date: a
+        for a in db.query(Attendance)
+        .filter(Attendance.employee_id == user.id, Attendance.date.in_(week_dates))
+        .all()
+    }
+    hours_week = []
+    days_names = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    for i, wd in enumerate(week_dates):
+        rec = week_atts.get(wd)
+        h = round(rec.working_minutes / 60.0, 1) if (rec and rec.working_minutes) else 0.0
+        ot = round(rec.overtime_minutes / 60.0, 1) if (rec and rec.overtime_minutes) else 0.0
+        hours_week.append({"d": days_names[i], "day": days_names[i], "v": h, "hours": h, "ot": ot})
+
     return {
         "plan": {
             "tasksAssigned": len(tasks),
@@ -263,10 +281,12 @@ def get_user_tasks(db: Session, user: User) -> dict:
             "not_started": not_started,
             "pending": pending,
             "blocked": blocked,
-            "overdue": overdue + blocked,
+            "overdue": overdue,
             "completion": round(100 * completed / n),
         },
         "tasks": rows,
+        "hoursWeek": hours_week,
+        "weekly_hours": hours_week,
     }
 
 
@@ -1106,6 +1126,8 @@ def hr_request_task_changes(db: Session, task_id: int, hr_user: User, notes: str
 def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
     check_and_block_overdue_tasks(db)
 
+    from .burnout_service import get_employee_core_metrics
+
     if manager_user.role == "hr":
         team_members = db.query(User).filter(User.role == "employee").all()
     else:
@@ -1133,12 +1155,10 @@ def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
     for m in team_members:
         tasks = db.query(Task).filter(Task.employee_id == m.id).all()
         assigned = len(tasks)
-        completed = sum(1 for t in tasks if t.status == "Completed")
-        blocked = sum(1 for t in tasks if t.status == "Blocked")
-        in_progress = sum(1 for t in tasks if t.status == "In Progress")
-        almost_completed = sum(1 for t in tasks if t.status == "Almost Completed")
-        pending = sum(1 for t in tasks if t.status in ("Pending", "Not Started")) + in_progress + almost_completed
+        completed = sum(1 for t in tasks if t.status in ("Completed", "Done"))
+        blocked = sum(1 for t in tasks if t.status == "Blocked" or (t.blocked_reason and t.status not in ("Completed", "Done")))
         overdue = sum(1 for t in tasks if t.status == "Overdue")
+        pending = sum(1 for t in tasks if t.status in ("Pending", "Not Started", "In Progress", "Almost Completed") and not (t.blocked_reason and t.status not in ("Completed", "Done")))
 
         total_assigned += assigned
         total_completed += completed
@@ -1167,20 +1187,71 @@ def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
                 "updated_at": t.updated_at.strftime("%d %b %Y, %I:%M %p") if t.updated_at else "—",
             })
 
+        m_metrics = get_employee_core_metrics(db, m)
         rows.append({
             "id": m.employee_code or f"E{m.id}",
+            "raw_id": m.id,
             "employee": m.name,
             "department": m.department or "Engineering",
             "assigned": assigned,
             "completed": completed,
             "pending": pending,
             "blocked": blocked,
-            "overdue": overdue + blocked,
-            "workload": min(100, max(20, assigned * 18)),
+            "overdue": overdue,
+            "workload": m_metrics["workload_score"] if m_metrics["workload_score"] is not None else 50,
         })
 
-    n = max(len(team_members), 1)
-    completion_rate = round(100 * total_completed / max(total_assigned, 1))
+    valid_workloads = [r["workload"] for r in rows if r["workload"] is not None]
+    avg_workload = round(sum(valid_workloads) / len(valid_workloads), 1) if valid_workloads else 0.0
+
+    member_ids = [m.id for m in team_members]
+    team_att = (
+        db.query(Attendance)
+        .filter(Attendance.employee_id.in_(member_ids), Attendance.working_minutes > 0)
+        .order_by(Attendance.date.desc())
+        .limit(max(len(member_ids) * 7, 14))
+        .all()
+    ) if member_ids else []
+    avg_hours = round(sum(a.working_minutes for a in team_att) / len(team_att) / 60.0, 1) if team_att else 8.0
+
+    completion_rate = round(100 * total_completed / max(total_assigned, 1)) if total_assigned else 0
+
+    today_d = date.today()
+    monday = today_d - timedelta(days=today_d.weekday())
+    week_dates = [monday + timedelta(days=i) for i in range(5)]
+    week_att_rows = (
+        db.query(Attendance)
+        .filter(Attendance.employee_id.in_(member_ids), Attendance.date.in_(week_dates))
+        .all()
+    ) if member_ids else []
+    week_att_by_date = {}
+    for a in week_att_rows:
+        week_att_by_date.setdefault(a.date, []).append(a)
+
+    hours_week = []
+    days_names = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    for i, wd in enumerate(week_dates):
+        d_atts = week_att_by_date.get(wd, [])
+        valid_m = [a.working_minutes for a in d_atts if a.working_minutes and a.working_minutes > 0]
+        ot_m = [a.overtime_minutes for a in d_atts if a.overtime_minutes and a.overtime_minutes > 0]
+        h = round(sum(valid_m) / len(valid_m) / 60.0, 1) if valid_m else 0.0
+        ot = round(sum(ot_m) / len(ot_m) / 60.0, 1) if ot_m else 0.0
+        hours_week.append({"day": days_names[i], "hours": h, "ot": ot})
+
+    team_surveys = (
+        db.query(Survey)
+        .filter(Survey.employee_id.in_(member_ids), Survey.date == today_d)
+        .all()
+    ) if member_ids else []
+    exp_wl_list = [float(s.answers["manageable"]) for s in team_surveys if s.answers and "manageable" in s.answers]
+    act_wl_list = [float(s.answers["workload"]) for s in team_surveys if s.answers and "workload" in s.answers]
+    stress_list = [float(s.answers["stress"]) for s in team_surveys if s.answers and "stress" in s.answers]
+
+    expected_actual = [
+        {"metric": "Workload", "expected": round(sum(exp_wl_list) / len(exp_wl_list)) if exp_wl_list else 3, "actual": round(sum(act_wl_list) / len(act_wl_list)) if act_wl_list else 3},
+        {"metric": "Stress", "expected": 2, "actual": round(sum(stress_list) / len(stress_list)) if stress_list else 2},
+        {"metric": "Difficulty", "expected": 3, "actual": 3},
+    ]
 
     return {
         "summary": {
@@ -1188,14 +1259,17 @@ def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
             "completed": total_completed,
             "pending": total_pending,
             "blocked": total_blocked,
-            "overdue": total_overdue + total_blocked,
+            "overdue": total_overdue,
             "completion": completion_rate,
             "completion_rate": f"{completion_rate}%",
-            "avgWorkload": round(total_assigned / n * 12, 1),
-            "avgHours": 8.8,
+            "avgWorkload": avg_workload,
+            "avgHours": avg_hours,
         },
         "members": rows,
         "tasks": all_team_tasks,
+        "hoursWeek": hours_week,
+        "weekly_hours": hours_week,
+        "expectedActualToday": expected_actual,
     }
 
 

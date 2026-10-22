@@ -20,23 +20,16 @@ export default function Workload() {
   if (loading) return <LoadingSkeleton rows={2} />
 
   const summary = data?.summary || {
-    assigned: 25,
-    completed: 18,
-    pending: 5,
-    overdue: 2,
-    avgWorkload: 64,
-    avgHours: 9.1,
+    assigned: 0,
+    completed: 0,
+    pending: 0,
+    overdue: 0,
+    avgWorkload: 0,
+    avgHours: 0,
   }
 
   const rows = data?.members || []
-
-  const hoursWeek = [
-    { day: 'Mon', hours: 9.2, ot: 1.2 },
-    { day: 'Tue', hours: 8.6, ot: 0.6 },
-    { day: 'Wed', hours: 9.8, ot: 1.8 },
-    { day: 'Thu', hours: 8.4, ot: 0.4 },
-    { day: 'Fri', hours: 9.1, ot: 1.1 },
-  ]
+  const hoursWeek = data?.hoursWeek || []
 
   return (
     <div className="page-stack fade-in">

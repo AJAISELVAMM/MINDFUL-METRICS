@@ -248,7 +248,7 @@ export default function Work() {
         </ChartCard>
         <ChartCard title="Weekly Workload Hours">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={[{ d: 'Mon', v: 8.5 }, { d: 'Tue', v: 8.0 }, { d: 'Wed', v: 9.2 }, { d: 'Thu', v: 8.4 }, { d: 'Fri', v: 8.8 }]}>
+            <BarChart data={data?.hoursWeek?.length ? data.hoursWeek : []}>
               <CartesianGrid stroke="#eef2f7" vertical={false} />
               <XAxis dataKey="d" tick={{ fontSize: 11 }} />
               <YAxis width={24} tick={{ fontSize: 11 }} />

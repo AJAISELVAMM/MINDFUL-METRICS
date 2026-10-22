@@ -32,19 +32,22 @@ export default function EmployeeDashboard() {
   const kpis = data.kpis || {}
 
   // Determine burnout tone and hint
-  const burnoutVal = kpis.burnoutRisk ?? 45
-  const burnoutTone = burnoutVal > 69 ? 'high' : burnoutVal > 39 ? 'mod' : 'good'
-  const burnoutHint = burnoutVal > 69 ? 'High' : burnoutVal > 39 ? 'Moderate' : 'Good'
+  const hasBurnout = kpis.burnoutRisk !== undefined && kpis.burnoutRisk !== null && kpis.burnoutRisk !== '—'
+  const burnoutVal = hasBurnout ? kpis.burnoutRisk : 'N/A'
+  const burnoutTone = hasBurnout ? (burnoutVal > 69 ? 'high' : burnoutVal > 39 ? 'mod' : 'good') : 'default'
+  const burnoutHint = hasBurnout ? (burnoutVal > 69 ? 'High' : burnoutVal > 39 ? 'Moderate' : 'Good') : 'Unavailable'
 
   // Determine workload tone and hint
-  const workloadVal = kpis.workloadScore ?? 60
-  const workloadTone = workloadVal > 69 ? 'high' : workloadVal > 39 ? 'mod' : 'good'
-  const workloadHint = workloadVal > 69 ? 'High' : workloadVal > 39 ? 'Moderate' : 'Good'
+  const hasWorkload = kpis.workloadScore !== undefined && kpis.workloadScore !== null && kpis.workloadScore !== '—'
+  const workloadVal = hasWorkload ? kpis.workloadScore : 'N/A'
+  const workloadTone = hasWorkload ? (workloadVal > 69 ? 'high' : workloadVal > 39 ? 'mod' : 'good') : 'default'
+  const workloadHint = hasWorkload ? (workloadVal > 69 ? 'High' : workloadVal > 39 ? 'Moderate' : 'Good') : 'Unavailable'
 
   // Determine wlb tone and hint
-  const wlbVal = kpis.wlbScore ?? 80
-  const wlbTone = wlbVal >= 70 ? 'good' : wlbVal >= 45 ? 'mod' : 'high'
-  const wlbHint = wlbVal >= 70 ? 'Good' : wlbVal >= 45 ? 'Moderate' : 'Needs Attention'
+  const hasWlb = kpis.wlbScore !== undefined && kpis.wlbScore !== null && kpis.wlbScore !== '—'
+  const wlbVal = hasWlb ? kpis.wlbScore : 'N/A'
+  const wlbTone = hasWlb ? (wlbVal >= 70 ? 'good' : wlbVal >= 45 ? 'mod' : 'high') : 'default'
+  const wlbHint = hasWlb ? (wlbVal >= 70 ? 'Good' : wlbVal >= 45 ? 'Moderate' : 'Needs Attention') : 'Unavailable'
 
   // Working hours
   const hoursVal = kpis.workingHours ? `${kpis.workingHours} hrs` : (day.workingHours || '—')

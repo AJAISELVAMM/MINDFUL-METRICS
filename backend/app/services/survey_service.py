@@ -179,10 +179,20 @@ def get_today_survey_status(db: Session, user: User) -> dict:
     has_daily = any(s.survey_type in ("daily", "morning") for s in surveys)
     has_evening = any(s.survey_type == "evening" for s in surveys)
 
+    morning_survey = next((s for s in surveys if s.survey_type in ("daily", "morning")), None)
+    ans = morning_survey.answers if (morning_survey and isinstance(morning_survey.answers, dict)) else {}
+    expected_actual = [
+        {"metric": "Workload", "expected": int(ans.get("manageable", 3)), "actual": int(ans.get("workload", ans.get("manageable", 3)))},
+        {"metric": "Stress", "expected": 2, "actual": int(ans.get("stress", 3))},
+        {"metric": "Difficulty", "expected": 3, "actual": int(ans.get("difficulty", 3))},
+    ]
+
     return {
         "dailyCompleted": has_daily,
         "eveningCompleted": has_evening,
         "pulseCompleted": bool(pulse),
         "pulseValue": pulse.workload_response if pulse else None,
+        "expectedActualToday": expected_actual,
         "count": len(surveys),
     }
+

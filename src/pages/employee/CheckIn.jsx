@@ -17,11 +17,16 @@ export default function CheckIn() {
   const [pulseDone, setPulseDone] = useState(false)
   const [successMsg, setSuccessMsg] = useState('')
 
+  const [expectedActual, setExpectedActual] = useState([])
+
   useEffect(() => {
     getSurveyToday().then((res) => {
       if (res.pulseCompleted) {
         setPulseDone(true)
         setPulseValue(res.pulseValue)
+      }
+      if (res.expectedActualToday) {
+        setExpectedActual(res.expectedActualToday)
       }
     }).catch(() => {})
   }, [])
@@ -162,7 +167,7 @@ export default function CheckIn() {
       {day.phase === 'DAY_COMPLETED' && (
         <div className="card p-5">
           <h3 className="mb-3 text-sm font-semibold">Expected vs Actual</h3>
-          <ExpectedActualComparison items={expectedActualToday} />
+          <ExpectedActualComparison items={expectedActual.length ? expectedActual : expectedActualToday} />
         </div>
       )}
     </div>

@@ -1,5 +1,5 @@
 from __future__ import annotations
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, time
 from typing import Any
 from fastapi import Depends, FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -18,7 +18,10 @@ from .models import (
 from .security import hash_password, verify_password, create_token, current_user, require_role
 from .seed import seed
 from .ml.model_loader import load_metadata
-from .services.burnout_service import ensure_trained, predict_for_employee, recalculate_employee_burnout
+from .services.burnout_service import (
+    ensure_trained, predict_for_employee, recalculate_employee_burnout,
+    get_employee_core_metrics
+)
 from .services.semantic_service import analyze_communication
 from .services.attendance_service import (
     check_in_user, check_out_user, get_today_attendance_record,
@@ -516,110 +519,31 @@ def change_password(body: PasswordChangeIn, user: User = Depends(current_user), 
 # ===============================================================
 
 def _kpis_for(user: User, db: Session) -> dict:
-    last = db.query(Prediction).filter(Prediction.employee_id == user.id).order_by(Prediction.id.desc()).first()
-    if not last:
-        pred = predict_for_employee(db, user, persist=True)
-        if pred.get("insufficient_data"):
-            return {
-                "burnoutRisk": "—",
-                "burnoutLabel": "Insufficient data",
-                "stressScore": "—",
-                "stressLabel": "Need survey",
-                "workloadScore": "—",
-                "workloadLabel": "Need survey",
-                "wlbScore": "—",
-                "wlbLabel": "Need survey",
-                "workingHours": "—",
-            }
-        last = db.query(Prediction).filter(Prediction.employee_id == user.id).order_by(Prediction.id.desc()).first()
-
-    score = last.burnout_score if last else 50.0
-    label = last.risk_level if last else "MODERATE"
-
-    # Real working hours calculation from recent attendance
-    recent_att = (
-        db.query(Attendance)
-        .filter(Attendance.employee_id == user.id)
-        .order_by(Attendance.date.desc())
-        .limit(7)
-        .all()
-    )
-    if recent_att:
-        avg_h = sum((a.working_minutes or 0) for a in recent_att) / max(len(recent_att), 1) / 60
-        working_hours_val = round(avg_h, 1)
-    else:
-        working_hours_val = 8.5
-
-    # Real survey scores if available
-    recent_survey = (
-        db.query(Survey)
-        .filter(Survey.employee_id == user.id)
-        .order_by(Survey.id.desc())
-        .first()
-    )
-    survey_ans = recent_survey.answers if recent_survey and recent_survey.answers else {}
-
-    def get_ans_score(k, default):
-        val = survey_ans.get(k)
-        try:
-            return round(float(val) * 20) if val is not None else default
-        except Exception:
-            return default
-
-    # Stored ML features from latest feature extraction
-    latest_bf = (
-        db.query(BurnoutFeatures)
-        .filter(BurnoutFeatures.employee_id == user.id)
-        .order_by(BurnoutFeatures.id.desc())
-        .first()
-    )
-    feat_dict = latest_bf.features if latest_bf and latest_bf.features else {}
-
-    # Query authoritative task records for the employee
-    tasks = db.query(Task).filter(Task.employee_id == user.id).all()
-    pending_tasks = [t for t in tasks if t.status not in ("Completed", "Cancelled")]
-
-    # Dynamic Workload Score Calculation:
-    # 1. Base perceived workload from survey perception, or ML features, or baseline 50
-    # 2. Dynamic workload deviation from real pending tasks: (len(pending_tasks) - 3) * 6.0 clamped in [-30, 30]
-    # 3. act_wl = clip(base_wl + wl_dev, 0, 100)
-    if tasks:
-        if "workload" in survey_ans:
-            base_wl = float(survey_ans["workload"]) * 20.0
-        elif "manageable" in survey_ans:
-            base_wl = (6.0 - float(survey_ans["manageable"])) * 20.0
-        elif feat_dict.get("workload_score") is not None:
-            base_wl = float(feat_dict["workload_score"])
-        else:
-            base_wl = 50.0
-
-        wl_dev = min(30.0, max(-30.0, (len(pending_tasks) - 3) * 6.0))
-        workload_val = int(round(min(100.0, max(0.0, base_wl + wl_dev))))
-    else:
-        workload_val = get_ans_score("workload", get_ans_score("manageable", round(score * 0.85)))
-
-    # Work-Life Balance Score Calculation:
-    # Reflects survey wlb responses, or feature work_life_balance_score, or derived from overtime & burnout
-    if "wlb" in survey_ans:
-        wlb_val = int(round(float(survey_ans["wlb"]) * 20.0))
-    elif feat_dict.get("work_life_balance_score") is not None:
-        wlb_val = int(round(float(feat_dict["work_life_balance_score"])))
-    else:
-        recent_ot_hours = sum((a.overtime_minutes or 0) for a in recent_att) / max(len(recent_att), 1) / 60 if recent_att else 0.0
-        wlb_val = int(round(max(20.0, min(100.0, 100.0 - (score * 0.5) - (recent_ot_hours * 5.0)))))
-
-    stress_val = get_ans_score("stress", round(score * 0.92))
+    metrics = get_employee_core_metrics(db, user)
+    burnout = metrics["burnout_score"]
+    level = metrics["risk_level"]
+    stress = metrics["stress_score"]
+    workload = metrics["workload_score"]
+    wlb = metrics["wlb_score"]
+    wh_display = metrics["working_hours_display"] or "—"
+    wh_num = metrics["working_hours_num"]
 
     return {
-        "burnoutRisk": round(score),
-        "burnoutLabel": label.title() if isinstance(label, str) else label,
-        "stressScore": stress_val,
-        "stressLabel": "Elevated" if stress_val >= 60 else "Moderate" if stress_val >= 40 else "Stable",
-        "workloadScore": workload_val,
-        "workloadLabel": "High" if workload_val >= 70 else "Manageable" if workload_val >= 40 else "Low",
-        "wlbScore": wlb_val,
-        "wlbLabel": "Needs Attention" if wlb_val <= 40 else "Balanced",
-        "workingHours": working_hours_val,
+        "burnoutRisk": burnout if burnout is not None else "—",
+        "burnoutLabel": level.title() if isinstance(level, str) else "Moderate",
+        "stressScore": stress if stress is not None else "—",
+        "stressLabel": "Elevated" if (stress or 0) >= 60 else "Moderate" if (stress or 0) >= 40 else "Stable",
+        "workloadScore": workload if workload is not None else "—",
+        "workloadLabel": "High" if (workload or 0) >= 70 else "Manageable" if (workload or 0) >= 40 else "Low",
+        "wlbScore": wlb if wlb is not None else "—",
+        "wlbLabel": "Optimal" if (wlb or 0) >= 70 else "Adequate" if (wlb or 0) >= 40 else "Strained",
+        "workingHours": wh_display,
+        "workingHoursNum": wh_num,
+        "activeTasks": metrics["active_tasks"],
+        "completedTasks": metrics["completed_tasks"],
+        "totalTasks": metrics["total_tasks"],
+        "completionRate": metrics["completion_rate"],
+        "blockedTasks": metrics["blocked_tasks"],
     }
 
 
@@ -627,7 +551,7 @@ def _get_user_charts_data(user: User, db: Session) -> dict:
     today = date.today()
     days = [today - timedelta(days=i) for i in range(6, -1, -1)]
 
-    # Real Hours Week from Attendance
+    # Real Hours Week from actual Attendance records
     att_rows = (
         db.query(Attendance)
         .filter(Attendance.employee_id == user.id, Attendance.date >= days[0], Attendance.date <= days[-1])
@@ -641,41 +565,54 @@ def _get_user_charts_data(user: User, db: Session) -> dict:
         rec = att_by_date.get(d)
         if rec and rec.working_minutes:
             h = round(rec.working_minutes / 60, 1)
-            ot = round(rec.overtime_minutes / 60, 1)
-        elif d.weekday() >= 5:
+            ot = round((rec.overtime_minutes or 0) / 60, 1)
+        else:
             h = 0.0
             ot = 0.0
-        else:
-            h = 8.5
-            ot = 0.5
         hours_week.append({"day": day_name, "hours": h, "ot": ot})
 
-    # Real Burnout Trend from Predictions
+    # Real Burnout Trend from actual Prediction records
     preds = (
         db.query(Prediction)
-        .filter(Prediction.employee_id == user.id)
-        .order_by(Prediction.id.desc())
-        .limit(7)
+        .filter(Prediction.employee_id == user.id, Prediction.prediction_date >= datetime.combine(days[0], time.min))
+        .order_by(Prediction.id.asc())
         .all()
     )
-    preds = list(reversed(preds))
-    if preds:
-        burnout_trend = [
-            {"day": p.prediction_date.strftime("%a") if p.prediction_date else f"D{i+1}", "value": round(p.burnout_score)}
-            for i, p in enumerate(preds)
-        ]
-    else:
-        burnout_trend = [{"day": d.strftime("%a"), "value": 55} for d in days]
+    if not preds:
+        preds = (
+            db.query(Prediction)
+            .filter(Prediction.employee_id == user.id)
+            .order_by(Prediction.id.desc())
+            .limit(7)
+            .all()
+        )
+        preds = list(reversed(preds))
 
-    # Real Stress & Workload Trend from Surveys
+    burnout_trend = [
+        {
+            "day": p.prediction_date.strftime("%a") if p.prediction_date else f"D{i+1}",
+            "value": round(p.burnout_score) if p.burnout_score is not None else 0
+        }
+        for i, p in enumerate(preds)
+    ]
+
+    # Real Stress & Workload Trend from actual Survey records
     surveys = (
         db.query(Survey)
-        .filter(Survey.employee_id == user.id)
-        .order_by(Survey.date.desc())
-        .limit(7)
+        .filter(Survey.employee_id == user.id, Survey.date >= days[0], Survey.date <= days[-1])
+        .order_by(Survey.date.asc())
         .all()
     )
-    surveys = list(reversed(surveys))
+    if not surveys:
+        surveys = (
+            db.query(Survey)
+            .filter(Survey.employee_id == user.id)
+            .order_by(Survey.date.desc())
+            .limit(7)
+            .all()
+        )
+        surveys = list(reversed(surveys))
+
     stress_trend = []
     for s in surveys:
         ans = s.answers or {}
@@ -688,13 +625,7 @@ def _get_user_charts_data(user: User, db: Session) -> dict:
             st_sc, wl_sc = 50, 50
         stress_trend.append({"day": s.date.strftime("%a"), "stress": st_sc, "workload": wl_sc})
 
-    if not stress_trend:
-        stress_trend = [
-            {"day": d.strftime("%a"), "stress": 45 + (i * 3), "workload": 50 + (i * 2)}
-            for i, d in enumerate(days)
-        ]
-
-    # Expected vs Actual
+    # Expected vs Actual from today's real survey
     today_survey = (
         db.query(Survey)
         .filter(Survey.employee_id == user.id, Survey.date == today)
@@ -702,9 +633,9 @@ def _get_user_charts_data(user: User, db: Session) -> dict:
     )
     ans = today_survey.answers if today_survey and today_survey.answers else {}
     ea = [
-        {"metric": "Workload", "expected": int(ans.get("manageable", 3)), "actual": int(ans.get("workload", ans.get("manageable", 4)))},
+        {"metric": "Workload", "expected": int(ans.get("manageable", 3)), "actual": int(ans.get("workload", ans.get("manageable", 3)))},
         {"metric": "Stress", "expected": 2, "actual": int(ans.get("stress", 3))},
-        {"metric": "Difficulty", "expected": 3, "actual": int(ans.get("difficulty", 4))},
+        {"metric": "Difficulty", "expected": 3, "actual": int(ans.get("difficulty", 3))},
     ]
 
     return {
@@ -910,37 +841,62 @@ def mgr_att(user: User = Depends(require_role("manager", "hr")), db: Session = D
 def hr_att(
     department: str | None = Query(None),
     status: str | None = Query(None),
+    date_str: str | None = Query(None, alias="date"),
     user: User = Depends(require_role("hr")),
     db: Session = Depends(get_db),
 ):
-    today = date.today()
-    users_query = db.query(User)
+    now = get_current_time()
+    today = now.date()
+    target_d = today
+    if date_str:
+        try:
+            target_d = datetime.strptime(date_str, "%Y-%m-%d").date()
+        except ValueError:
+            target_d = today
+
+    users_query = db.query(User).filter(User.role.in_(["employee", "manager"]))
     if department and department != "All":
         users_query = users_query.filter(User.department == department)
     all_users = users_query.all()
 
-    today_atts = db.query(Attendance).filter(Attendance.date == today).all()
-    att_by_user = {a.employee_id: a for a in today_atts}
+    target_atts = db.query(Attendance).filter(Attendance.date == target_d).all()
+    att_by_user = {a.employee_id: a for a in target_atts}
 
     approved_leaves = db.query(LeaveRequest).filter(
         LeaveRequest.status == "Approved",
         or_(
-            LeaveRequest.date.like(f"%{today}%"),
-            (LeaveRequest.start_date <= today) & (LeaveRequest.end_date >= today),
+            LeaveRequest.date.like(f"%{target_d}%"),
+            (LeaveRequest.start_date <= target_d) & (LeaveRequest.end_date >= target_d),
         ),
     ).all()
     on_leave_users = {l.employee_id for l in approved_leaves}
+
+    from .services.holiday_service import is_holiday as check_holiday, is_weekly_off as check_sunday
+    is_h = check_holiday(db, target_d)
+    is_sunday = check_sunday(target_d)
+    is_future = target_d > today
+    is_today_open = (target_d == today and now.time() < time(19, 0))
 
     rows = []
     for u in all_users:
         rec = att_by_user.get(u.id)
         has_approved_l = (u.id in on_leave_users)
-        canon_status, disp_status, _ = get_canonical_attendance_status(rec, has_leave=has_approved_l)
+        canon_status, disp_status, _ = get_canonical_attendance_status(
+            rec,
+            is_holiday=is_h,
+            is_weekly_off=is_sunday,
+            has_leave=has_approved_l,
+            is_future=is_future,
+            is_today_open=is_today_open,
+        )
         h = rec.working_minutes // 60 if rec and rec.working_minutes else 0
         m = rec.working_minutes % 60 if rec and rec.working_minutes else 0
 
-        if status and status != "All" and status.lower() not in disp_status.lower() and status.upper() != canon_status:
-            continue
+        if status and status != "All":
+            s_up = status.upper()
+            if s_up not in canon_status and status.lower() not in disp_status.lower():
+                continue
+
         rows.append({
             "id": u.employee_code or f"E{u.id}",
             "name": u.name,
@@ -954,6 +910,7 @@ def hr_att(
             "overtime": f"{rec.overtime_minutes // 60}h {rec.overtime_minutes % 60}m" if rec and rec.overtime_minutes else "—",
         })
     return rows
+
 
 
 @app.get("/api/holidays")
@@ -1684,21 +1641,21 @@ def mgr_dash(user: User = Depends(require_role("manager", "hr")), db: Session = 
     warnings = []
 
     for m in team_members:
-        p = latest_pred.get(m.id)
-        score = int(p.burnout_score) if (p and p.burnout_score is not None) else 55
-        level = p.risk_level if (p and p.risk_level) else "MODERATE"
+        core = get_employee_core_metrics(db, m)
+        score = core["burnout_score"] if core["burnout_score"] is not None else 50
+        status_str = core["risk_level"].title() if core["risk_level"] else "Moderate"
 
-        if level == "HIGH" or score >= 70:
+        if status_str == "High" or score >= 70:
             high_count += 1
             status_str = "High"
-        elif level == "LOW" or score < 40:
+        elif status_str == "Low" or score < 40:
             low_count += 1
             status_str = "Low"
         else:
             mod_count += 1
             status_str = "Moderate"
 
-        factors_list = [f.get("feature", "").replace("_", " ").title() for f in (p.top_factors or [])[:3]] if p else []
+        factors_list = [f.get("name", "") for f in (core.get("risk_factors") or [])[:3]]
 
         members_data.append({
             "id": m.employee_code or f"E{m.id}",
@@ -1706,10 +1663,10 @@ def mgr_dash(user: User = Depends(require_role("manager", "hr")), db: Session = 
             "user_id": m.id,
             "name": m.name,
             "role": m.department or "Engineer",
-            "workload": min(100, max(40, score + 5)),
-            "stress": min(100, max(30, score - 2)),
+            "workload": core["workload_score"] if core["workload_score"] is not None else 50,
+            "stress": core["stress_score"] if core["stress_score"] is not None else 50,
             "burnout": score,
-            "hours": 9.2,
+            "hours": core["working_hours_num"] if core["working_hours_num"] is not None else 8.5,
             "status": status_str,
             "dept": m.department or "Engineering",
         })
@@ -1729,6 +1686,96 @@ def mgr_dash(user: User = Depends(require_role("manager", "hr")), db: Session = 
         {"name": "High", "value": high_count, "fill": "#ef4444"},
         {"name": "Moderate", "value": mod_count, "fill": "#f59e0b"},
         {"name": "Low", "value": low_count, "fill": "#22c55e"},
+    ]
+
+    # Real team historical trends for 7 days
+    today = date.today()
+    days_7 = [today - timedelta(days=i) for i in range(6, -1, -1)]
+
+    # Real team attendance aggregated by date
+    team_att = db.query(Attendance).filter(
+        Attendance.employee_id.in_(member_ids),
+        Attendance.date >= days_7[0],
+        Attendance.date <= days_7[-1]
+    ).all() if member_ids else []
+    att_by_date = {}
+    for a in team_att:
+        att_by_date.setdefault(a.date, []).append(a)
+
+    hours_week = []
+    for d in days_7:
+        day_atts = att_by_date.get(d, [])
+        valid = [a for a in day_atts if a.working_minutes]
+        if valid:
+            avg_h = round(sum(a.working_minutes for a in valid) / len(valid) / 60, 1)
+            avg_ot = round(sum((a.overtime_minutes or 0) for a in valid) / len(valid) / 60, 1)
+        else:
+            avg_h, avg_ot = 0.0, 0.0
+        hours_week.append({"day": d.strftime("%a"), "hours": avg_h, "ot": avg_ot})
+
+    # Real team predictions aggregated by date
+    team_preds = db.query(Prediction).filter(
+        Prediction.employee_id.in_(member_ids),
+        Prediction.prediction_date >= datetime.combine(days_7[0], time.min)
+    ).all() if member_ids else []
+    preds_by_date = {}
+    for p in team_preds:
+        p_d = p.prediction_date.date() if isinstance(p.prediction_date, datetime) else p.prediction_date
+        if p_d and p.burnout_score is not None:
+            preds_by_date.setdefault(p_d, []).append(p.burnout_score)
+
+    burnout_trend_7 = []
+    for d in days_7:
+        p_scores = preds_by_date.get(d, [])
+        if p_scores:
+            b_val = round(sum(p_scores) / len(p_scores))
+        else:
+            b_val = round(sum(m["burnout"] for m in members_data) / max(len(members_data), 1))
+        burnout_trend_7.append({"day": d.strftime("%a"), "value": b_val})
+
+    # Real team surveys aggregated by date
+    team_surveys = db.query(Survey).filter(
+        Survey.employee_id.in_(member_ids),
+        Survey.date >= days_7[0],
+        Survey.date <= days_7[-1]
+    ).all() if member_ids else []
+    surveys_by_date = {}
+    for s in team_surveys:
+        surveys_by_date.setdefault(s.date, []).append(s)
+
+    stress_trend_7 = []
+    for d in days_7:
+        day_surveys = surveys_by_date.get(d, [])
+        if day_surveys:
+            st_scores = []
+            wl_scores = []
+            for s in day_surveys:
+                ans = s.answers or {}
+                st = ans.get("stress")
+                wl = ans.get("workload", ans.get("manageable"))
+                if st is not None:
+                    try:
+                        st_scores.append(float(st) * 20.0)
+                    except Exception:
+                        pass
+                if wl is not None:
+                    try:
+                        wl_scores.append(float(wl) * 20.0)
+                    except Exception:
+                        pass
+            avg_st = round(sum(st_scores) / len(st_scores)) if st_scores else round(sum(m["stress"] for m in members_data) / max(len(members_data), 1))
+            avg_wl = round(sum(wl_scores) / len(wl_scores)) if wl_scores else round(sum(m["workload"] for m in members_data) / max(len(members_data), 1))
+        else:
+            avg_st = round(sum(m["stress"] for m in members_data) / max(len(members_data), 1))
+            avg_wl = round(sum(m["workload"] for m in members_data) / max(len(members_data), 1))
+        stress_trend_7.append({"day": d.strftime("%a"), "stress": avg_st, "workload": avg_wl})
+
+    avg_team_wl = round(sum(m["workload"] for m in members_data) / max(len(members_data), 1))
+    avg_team_st = round(sum(m["stress"] for m in members_data) / max(len(members_data), 1))
+    ea_today = [
+        {"metric": "Workload", "expected": 3, "actual": max(1, min(5, avg_team_wl // 20))},
+        {"metric": "Stress", "expected": 2, "actual": max(1, min(5, avg_team_st // 20))},
+        {"metric": "Difficulty", "expected": 3, "actual": 3},
     ]
 
     # Fetch or generate manager's own burnout prediction
@@ -1782,6 +1829,13 @@ def mgr_dash(user: User = Depends(require_role("manager", "hr")), db: Session = 
         "warnings": warnings,
         "my_burnout": my_burnout,
         "kpis": _kpis_for(user, db),
+        "burnoutTrend7": burnout_trend_7,
+        "burnout_trend": burnout_trend_7,
+        "hoursWeek": hours_week,
+        "hours_trend": hours_week,
+        "stressTrend": stress_trend_7,
+        "stress_trend": stress_trend_7,
+        "expectedActualToday": ea_today,
     }
 
 
@@ -1844,8 +1898,8 @@ def get_user_full_details(
         "account_status": "Active",
     }
 
-    # 2. Attendance history (recent records for this exact user)
-    atts = db.query(Attendance).filter(Attendance.employee_id == target.id).order_by(Attendance.date.desc()).limit(30).all()
+    # 2. Attendance history (records for this exact user)
+    atts = db.query(Attendance).filter(Attendance.employee_id == target.id).order_by(Attendance.date.desc()).all()
     attendance_list = []
     for a in atts:
         h = a.working_minutes // 60 if a.working_minutes else 0
@@ -1919,123 +1973,34 @@ def get_user_full_details(
             "reason": p.reason or "—",
         })
 
-    # 5. Workload & wellbeing insights
-    total_tasks = len(tasks)
-    active_tasks = sum(1 for t in tasks if t.status not in ("Completed", "Done"))
-    completed_tasks = sum(1 for t in tasks if t.status in ("Completed", "Done"))
-    completion_rate = round((completed_tasks / total_tasks) * 100) if total_tasks else 0
-    blocked_tasks = sum(1 for t in tasks if t.blocked_reason or t.status == "Blocked")
+    # 5. Authoritative Core Metrics from Central Service
+    core = get_employee_core_metrics(db, target)
 
-    latest_pred = db.query(Prediction).filter(Prediction.employee_id == target.id).order_by(Prediction.id.desc()).first()
-    if not latest_pred:
-        try:
-            pred_gen = predict_for_employee(db, target, persist=True)
-            if not pred_gen.get("insufficient_data"):
-                latest_pred = db.query(Prediction).filter(Prediction.employee_id == target.id).order_by(Prediction.id.desc()).first()
-        except Exception:
-            pass
+    wellbeing = {
+        "has_prediction": core["has_prediction"],
+        "burnout_score": core["burnout_score"],
+        "risk_level": core["risk_level"],
+        "prediction_timestamp": core["prediction_timestamp"],
+        "workload_score": core["workload_score"],
+        "work_life_balance_score": core["wlb_score"],
+        "working_hours": core["working_hours_display"],
+        "working_hours_num": core["working_hours_num"],
+        "risk_factors": core["risk_factors"],
+        "recommendations": core["recommendations"],
+        "explanation": core["explanation"],
+    }
 
-    # Real Workload & WLB score calculations
-    pending_tasks = [t for t in tasks if t.status not in ("Completed", "Done")]
-    recent_att = atts[:14]
-    b_score = int(round(latest_pred.burnout_score)) if (latest_pred and latest_pred.burnout_score is not None) else None
-    calc_base_score = float(b_score if b_score is not None else 50.0)
-
-    latest_survey = db.query(Survey).filter(Survey.employee_id == target.id).order_by(Survey.id.desc()).first()
-    survey_ans = latest_survey.answers if (latest_survey and isinstance(latest_survey.answers, dict)) else {}
-
-    feat_dict = {}
-    latest_feat = db.query(BurnoutFeatures).filter(BurnoutFeatures.employee_id == target.id).order_by(BurnoutFeatures.id.desc()).first()
-    if latest_feat and isinstance(latest_feat.features, dict):
-        feat_dict = latest_feat.features
-
-    # Working hours calculation from target employee's actual attendance records
-    valid_att = [a for a in atts if a.working_minutes and a.working_minutes > 0]
-    if valid_att:
-        recent_valid = valid_att[:14]
-        avg_minutes = sum(a.working_minutes for a in recent_valid) / len(recent_valid)
-        avg_hours = round(avg_minutes / 60.0, 1)
-        working_hours_display = f"{avg_hours}h"
-        working_hours_num = avg_hours
-    elif feat_dict.get("working_hours") is not None:
-        h = round(float(feat_dict["working_hours"]), 1)
-        working_hours_display = f"{h}h"
-        working_hours_num = h
-    else:
-        working_hours_display = None
-        working_hours_num = None
-
-    # Workload score
-    if feat_dict.get("workload_score") is not None:
-        workload_score = int(round(float(feat_dict["workload_score"])))
-    elif survey_ans:
-        if "workload" in survey_ans:
-            base_wl = float(survey_ans["workload"]) * 20.0
-        elif "manageable" in survey_ans:
-            base_wl = (6.0 - float(survey_ans["manageable"])) * 20.0
-        else:
-            base_wl = 50.0
-        wl_dev = min(30.0, max(-30.0, (len(pending_tasks) - 3) * 6.0)) if tasks else 0.0
-        workload_score = int(round(min(100.0, max(0.0, base_wl + wl_dev))))
-    elif tasks:
-        wl_dev = min(30.0, max(-30.0, (len(pending_tasks) - 3) * 6.0))
-        base_wl = calc_base_score if latest_pred else 50.0
-        workload_score = int(round(min(100.0, max(0.0, base_wl + wl_dev))))
-    elif latest_pred:
-        workload_score = int(round(min(100.0, max(20.0, calc_base_score * 0.85))))
-    else:
-        workload_score = None
-
-    # Work-Life Balance score
-    if feat_dict.get("work_life_balance_score") is not None:
-        wlb_score = int(round(float(feat_dict["work_life_balance_score"])))
-    elif "wlb" in survey_ans:
-        wlb_score = int(round(float(survey_ans["wlb"]) * 20.0))
-    elif recent_att or latest_pred:
-        recent_ot_hours = sum((a.overtime_minutes or 0) for a in recent_att) / max(len(recent_att), 1) / 60 if recent_att else 0.0
-        wlb_score = int(round(max(20.0, min(100.0, 100.0 - (calc_base_score * 0.5) - (recent_ot_hours * 5.0)))))
-    else:
-        wlb_score = None
-
-    if latest_pred:
-        r_level = latest_pred.risk_level or ("High" if (b_score or 0) >= 70 else ("Moderate" if (b_score or 0) >= 40 else "Low"))
-        factors = [
-            {"name": f.get("feature", f.get("name", "")).replace("_", " ").title(), "impact": f.get("importance", 0)}
-            for f in (latest_pred.top_factors or [])
-        ]
-        recs_list = latest_pred.recommendations or []
-        if not recs_list and latest_pred.top_factors:
-            from .services.recommendation_service import recommendations_from_factors
-            recs_list = recommendations_from_factors(latest_pred.top_factors, r_level)
-
-        pred_time = getattr(latest_pred, "prediction_date", None) or getattr(latest_pred, "created_at", None)
-        wellbeing = {
-            "has_prediction": True,
-            "burnout_score": b_score,
-            "risk_level": r_level,
-            "prediction_timestamp": pred_time.strftime("%d %b %Y, %I:%M %p") if pred_time else None,
-            "workload_score": workload_score,
-            "work_life_balance_score": wlb_score,
-            "working_hours": working_hours_display,
-            "working_hours_num": working_hours_num,
-            "risk_factors": factors,
-            "recommendations": recs_list,
-            "explanation": getattr(latest_pred, "explanation", None) or (recs_list[0] if recs_list else ""),
-        }
-    else:
-        wellbeing = {
-            "has_prediction": False,
-            "burnout_score": None,
-            "risk_level": "Unavailable",
-            "prediction_timestamp": None,
-            "workload_score": workload_score,
-            "work_life_balance_score": wlb_score,
-            "working_hours": working_hours_display,
-            "working_hours_num": working_hours_num,
-            "risk_factors": [],
-            "recommendations": [],
-            "explanation": "No burnout prediction recorded yet for this user.",
-        }
+    workload = {
+        "total_tasks": core["total_tasks"],
+        "active_tasks": core["active_tasks"],
+        "completed_tasks": core["completed_tasks"],
+        "completion_rate": core["completion_rate"],
+        "blocked_tasks": core["blocked_tasks"],
+        "workload_score": core["workload_score"],
+        "work_life_balance_score": core["wlb_score"],
+        "working_hours": core["working_hours_display"],
+        "working_hours_num": core["working_hours_num"],
+    }
 
     # Distinct team-level metrics for managers
     team_stats = None
@@ -2055,17 +2020,7 @@ def get_user_full_details(
         "tasks": task_list,
         "leaves": leave_list,
         "permissions": permission_list,
-        "workload": {
-            "total_tasks": total_tasks,
-            "active_tasks": active_tasks,
-            "completed_tasks": completed_tasks,
-            "completion_rate": completion_rate,
-            "blocked_tasks": blocked_tasks,
-            "workload_score": workload_score,
-            "work_life_balance_score": wlb_score,
-            "working_hours": working_hours_display,
-            "working_hours_num": working_hours_num,
-        },
+        "workload": workload,
         "wellbeing": wellbeing,
         "team_stats": team_stats,
     }
@@ -2073,54 +2028,129 @@ def get_user_full_details(
 
 
 @app.get("/api/manager/trends")
-def mgr_trends(user: User = Depends(require_role("manager", "hr")), db: Session = Depends(get_db)):
+def mgr_trends(
+    days: int = Query(7),
+    user: User = Depends(require_role("manager", "hr")),
+    db: Session = Depends(get_db)
+):
+    if user.role == "hr":
+        team_members = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
+    else:
+        team_members = db.query(User).filter(
+            or_(
+                User.manager_name == user.name,
+                User.manager_id == user.id,
+                User.department == user.department,
+            ),
+            User.role == "employee",
+        ).all()
+    member_ids = [m.id for m in team_members]
+
+    today = date.today()
+    date_list = [today - timedelta(days=i) for i in range(days - 1, -1, -1)]
+
+    # Real team attendance aggregated by date
+    team_att = db.query(Attendance).filter(
+        Attendance.employee_id.in_(member_ids),
+        Attendance.date >= date_list[0],
+        Attendance.date <= date_list[-1]
+    ).all() if member_ids else []
+    att_by_date = {}
+    for a in team_att:
+        att_by_date.setdefault(a.date, []).append(a)
+
+    hours_trend = []
+    overtime_trend = []
+    for d in date_list:
+        label = d.strftime("%d %b") if days > 7 else d.strftime("%a")
+        day_atts = att_by_date.get(d, [])
+        valid = [a for a in day_atts if a.working_minutes]
+        if valid:
+            avg_h = round(sum(a.working_minutes for a in valid) / len(valid) / 60, 1)
+            avg_ot = round(sum((a.overtime_minutes or 0) for a in valid) / len(valid) / 60, 1)
+        else:
+            avg_h, avg_ot = 0.0, 0.0
+        hours_trend.append({"day": label, "hours": avg_h, "ot": avg_ot})
+        overtime_trend.append({"day": label, "hours": avg_h, "ot": avg_ot})
+
+    # Real team predictions aggregated by date
+    team_preds = db.query(Prediction).filter(
+        Prediction.employee_id.in_(member_ids),
+        Prediction.prediction_date >= datetime.combine(date_list[0], time.min)
+    ).all() if member_ids else []
+    preds_by_date = {}
+    for p in team_preds:
+        p_d = p.prediction_date.date() if isinstance(p.prediction_date, datetime) else p.prediction_date
+        if p_d and p.burnout_score is not None:
+            preds_by_date.setdefault(p_d, []).append(p.burnout_score)
+
     dash = mgr_dash(user, db)
     members = dash["members"]
     avg_burnout = int(sum(m["burnout"] for m in members) / max(len(members), 1))
     avg_stress = int(sum(m["stress"] for m in members) / max(len(members), 1))
     avg_workload = int(sum(m["workload"] for m in members) / max(len(members), 1))
 
-    today = date.today()
-    days = [today - timedelta(days=i) for i in range(6, -1, -1)]
-
-    burnout_trend = [{"day": d.strftime("%a"), "value": max(20, min(95, avg_burnout + (i - 3) * 2))} for i, d in enumerate(days)]
-    stress_trend = [{"day": d.strftime("%a"), "stress": max(20, min(95, avg_stress + (i - 3))), "workload": max(20, min(95, avg_workload + (i - 2)))} for i, d in enumerate(days)]
-
-    hours_week = []
-    team_cond = (User.role == "employee") if user.role == "hr" else or_(User.manager_name == user.name, User.manager_id == user.id, User.department == user.department)
-    week_att = db.query(Attendance).join(User, Attendance.employee_id == User.id).filter(
-        team_cond,
-        Attendance.date.in_(days)
-    ).all()
-    att_by_day = {}
-    for a in week_att:
-        att_by_day.setdefault(a.date, []).append(a)
-
-    for d in days:
-        day_att = att_by_day.get(d, [])
-        if day_att:
-            avg_h = round(sum((a.working_minutes or 480) for a in day_att) / len(day_att) / 60, 1)
-            avg_ot = round(sum((a.overtime_minutes or 0) for a in day_att) / len(day_att) / 60, 1)
-        elif d.weekday() >= 5:
-            avg_h, avg_ot = 0.0, 0.0
+    burnout_trend = []
+    for d in date_list:
+        label = d.strftime("%d %b") if days > 7 else d.strftime("%a")
+        p_scores = preds_by_date.get(d, [])
+        if p_scores:
+            b_val = round(sum(p_scores) / len(p_scores))
         else:
-            avg_h, avg_ot = 8.8, 0.8
-        hours_week.append({"day": d.strftime("%a"), "hours": avg_h, "ot": avg_ot})
+            b_val = avg_burnout
+        burnout_trend.append({"day": label, "value": b_val})
+
+    # Real team surveys aggregated by date
+    team_surveys = db.query(Survey).filter(
+        Survey.employee_id.in_(member_ids),
+        Survey.date >= date_list[0],
+        Survey.date <= date_list[-1]
+    ).all() if member_ids else []
+    surveys_by_date = {}
+    for s in team_surveys:
+        surveys_by_date.setdefault(s.date, []).append(s)
+
+    stress_trend = []
+    for d in date_list:
+        label = d.strftime("%d %b") if days > 7 else d.strftime("%a")
+        day_surveys = surveys_by_date.get(d, [])
+        if day_surveys:
+            st_scores = []
+            wl_scores = []
+            for s in day_surveys:
+                ans = s.answers or {}
+                st = ans.get("stress")
+                wl = ans.get("workload", ans.get("manageable"))
+                if st is not None:
+                    try:
+                        st_scores.append(float(st) * 20.0)
+                    except Exception:
+                        pass
+                if wl is not None:
+                    try:
+                        wl_scores.append(float(wl) * 20.0)
+                    except Exception:
+                        pass
+            avg_st = round(sum(st_scores) / len(st_scores)) if st_scores else avg_stress
+            avg_wl = round(sum(wl_scores) / len(wl_scores)) if wl_scores else avg_workload
+        else:
+            avg_st, avg_wl = avg_stress, avg_workload
+        stress_trend.append({"day": label, "stress": avg_st, "workload": avg_wl})
 
     return {
         "burnoutTrend7": burnout_trend,
         "burnout_trend": burnout_trend,
         "stressTrend": stress_trend,
         "stress_trend": stress_trend,
-        "hoursWeek": hours_week,
-        "hours_trend": hours_week,
-        "overtime_trend": hours_week,
+        "hoursWeek": hours_trend,
+        "hours_trend": hours_trend,
+        "overtime_trend": overtime_trend,
         "avgBurnout": avg_burnout,
         "avgStress": avg_stress,
         "avgWorkload": avg_workload,
         "expectedActualToday": [
-            {"metric": "Workload", "expected": 3, "actual": max(2, min(5, avg_workload // 20))},
-            {"metric": "Stress", "expected": 2, "actual": max(2, min(5, avg_stress // 20))},
+            {"metric": "Workload", "expected": 3, "actual": max(1, min(5, avg_workload // 20))},
+            {"metric": "Stress", "expected": 2, "actual": max(1, min(5, avg_stress // 20))},
             {"metric": "Difficulty", "expected": 3, "actual": 3},
         ],
         "communicationSentiment": [
@@ -2138,13 +2168,11 @@ def mgr_trends(user: User = Depends(require_role("manager", "hr")), db: Session 
 
 @app.get("/api/hr/dashboard")
 def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_db)):
-    users = db.query(User).all()
+    users = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
 
-    # Batch query latest predictions for all users
-    all_preds = db.query(Prediction).distinct(Prediction.employee_id).order_by(Prediction.employee_id, Prediction.id.desc()).all()
-    latest_pred = {p.employee_id: p for p in all_preds}
+    # Calculate authoritative core metrics for all monitored users
+    u_core = {u.id: get_employee_core_metrics(db, u) for u in users}
 
-    # Collect all real departments from Department table and User.department
     dept_records = db.query(Department).all()
     dept_names = [d.name for d in dept_records]
     user_depts = [u.department for u in users if u.department]
@@ -2156,8 +2184,8 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
     low_count = 0
 
     for u in users:
-        p = latest_pred.get(u.id)
-        s = int(p.burnout_score) if (p and p.burnout_score is not None) else 50
+        core = u_core[u.id]
+        s = core["burnout_score"] if core["burnout_score"] is not None else 50
         if s >= 70:
             high_count += 1
         elif s < 40:
@@ -2169,18 +2197,22 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
         dept_users = [u for u in users if u.department == d]
         if not dept_users:
             continue
-        scores = []
-        for u in dept_users:
-            p = latest_pred.get(u.id)
-            scores.append(int(p.burnout_score) if (p and p.burnout_score is not None) else 50)
+        scores = [u_core[u.id]["burnout_score"] for u in dept_users if u_core[u.id]["burnout_score"] is not None]
+        wl_scores = [u_core[u.id]["workload_score"] for u in dept_users if u_core[u.id]["workload_score"] is not None]
+        st_scores = [u_core[u.id]["stress_score"] for u in dept_users if u_core[u.id]["stress_score"] is not None]
+        ot_scores = [u_core[u.id]["overtime_hours_num"] for u in dept_users if u_core[u.id]["overtime_hours_num"] is not None]
 
-        avg_s = int(sum(scores) / max(len(scores), 1))
+        avg_s = int(round(sum(scores) / len(scores))) if scores else 50
+        avg_wl = int(round(sum(wl_scores) / len(wl_scores))) if wl_scores else 50
+        avg_st = int(round(sum(st_scores) / len(st_scores))) if st_scores else 50
+        avg_ot = round(sum(ot_scores) / len(ot_scores), 1) if ot_scores else 0.0
+
         dept_stats.append({
             "name": d,
             "risk": avg_s,
-            "workload": min(100, avg_s + 6),
-            "stress": min(100, max(20, avg_s - 3)),
-            "overtime": max(5, avg_s // 4),
+            "workload": avg_wl,
+            "stress": avg_st,
+            "overtime": avg_ot,
         })
 
     total = len(users)
@@ -2190,6 +2222,66 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
         {"name": "Low", "value": low_count, "fill": "#22c55e"},
     ]
 
+    # Calculate real monthly trends for past 6 months
+    today = date.today()
+    trend = []
+    for m_offset in range(5, -1, -1):
+        year = today.year
+        month = today.month - m_offset
+        while month <= 0:
+            month += 12
+            year -= 1
+        m_start = date(year, month, 1)
+        if month == 12:
+            m_end = date(year + 1, 1, 1) - timedelta(days=1)
+        else:
+            m_end = date(year, month + 1, 1) - timedelta(days=1)
+        m_label = m_start.strftime("%b")
+
+        m_preds = db.query(Prediction).filter(
+            Prediction.prediction_date >= datetime.combine(m_start, time.min),
+            Prediction.prediction_date <= datetime.combine(m_end, time.max)
+        ).all()
+        valid_b = [p.burnout_score for p in m_preds if p.burnout_score is not None]
+        avg_b = round(sum(valid_b) / len(valid_b)) if valid_b else round(sum(u_core[u.id]["burnout_score"] or 50 for u in users) / max(len(users), 1))
+
+        m_atts = db.query(Attendance).filter(
+            Attendance.date >= m_start,
+            Attendance.date <= m_end
+        ).all()
+        ot_hours = round(sum((a.overtime_minutes or 0) for a in m_atts) / max(len(m_atts), 1) / 60, 1) if m_atts else 0.0
+
+        m_surveys = db.query(Survey).filter(
+            Survey.date >= m_start,
+            Survey.date <= m_end
+        ).all()
+        st_list = []
+        wl_list = []
+        for s in m_surveys:
+            ans = s.answers or {}
+            st = ans.get("stress")
+            wl = ans.get("workload", ans.get("manageable"))
+            if st is not None:
+                try:
+                    st_list.append(float(st) * 20.0)
+                except Exception:
+                    pass
+            if wl is not None:
+                try:
+                    wl_list.append(float(wl) * 20.0)
+                except Exception:
+                    pass
+        avg_st = round(sum(st_list) / len(st_list)) if st_list else round(sum(u_core[u.id]["stress_score"] or 50 for u in users) / max(len(users), 1))
+        avg_wl = round(sum(wl_list) / len(wl_list)) if wl_list else round(sum(u_core[u.id]["workload_score"] or 50 for u in users) / max(len(users), 1))
+
+        trend.append({
+            "month": m_label,
+            "burnout": avg_b,
+            "stress": avg_st,
+            "workload": avg_wl,
+            "overtime": ot_hours,
+        })
+
     return {
         "hr": {"name": user.name},
         "totalEmployees": total,
@@ -2198,16 +2290,7 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
         "lowRisk": low_count,
         "dist": dist,
         "departments": dept_stats,
-        "trend": [
-            {"month": m, "burnout": b, "stress": s, "workload": w, "overtime": o}
-            for m, b, s, w, o in zip(
-                ["Apr", "May", "Jun", "Jul", "Aug", "Sep"],
-                [48, 50, 52, 55, 58, 61],
-                [51, 53, 55, 58, 60, 63],
-                [54, 56, 58, 61, 64, 67],
-                [9, 10, 12, 14, 16, 18],
-            )
-        ],
+        "trend": trend,
     }
 
 
@@ -2225,18 +2308,15 @@ def hr_trends(user: User = Depends(require_role("hr")), db: Session = Depends(ge
 
 @app.get("/api/hr/employees")
 def hr_emp(user: User = Depends(require_role("hr")), db: Session = Depends(get_db)):
-    users = db.query(User).all()
+    users = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
     today = date.today()
-
-    all_preds = db.query(Prediction).distinct(Prediction.employee_id).order_by(Prediction.employee_id, Prediction.id.desc()).all()
-    latest_pred = {p.employee_id: p for p in all_preds}
 
     today_atts = db.query(Attendance).filter(Attendance.date == today).all()
     att_by_user = {a.employee_id: a for a in today_atts}
 
     out = []
     for u in users:
-        p = latest_pred.get(u.id)
+        core = get_employee_core_metrics(db, u)
         att = att_by_user.get(u.id)
         out.append({
             "id": u.employee_code or f"E{u.id}",
@@ -2246,8 +2326,8 @@ def hr_emp(user: User = Depends(require_role("hr")), db: Session = Depends(get_d
             "dept": u.department or "Engineering",
             "role": u.role.title() if u.role else "Employee",
             "status": "Active",
-            "burnout": int(p.burnout_score) if (p and p.burnout_score is not None) else 50,
-            "workload": 65,
+            "burnout": core["burnout_score"] if core["burnout_score"] is not None else 50,
+            "workload": core["workload_score"] if core["workload_score"] is not None else 50,
             "lastCheckIn": att.check_in if (att and att.check_in) else "—",
         })
     return out
