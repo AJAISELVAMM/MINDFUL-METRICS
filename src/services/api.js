@@ -216,8 +216,8 @@ async function executeFetch(path, options, cacheKey, isGet, now) {
     if (t) headers.Authorization = `Bearer ${t}`
     const url = buildApiUrl(path)
     
-    // 15 second request timeout to avoid hanging connections (default, or custom signal)
-    const signal = options.signal || (typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(15000) : undefined)
+    // 30 second request timeout to avoid hanging connections while allowing cloud database queries
+    const signal = options.signal || (typeof AbortSignal !== 'undefined' && AbortSignal.timeout ? AbortSignal.timeout(30000) : undefined)
     const res = await fetch(url, { ...options, headers, signal })
 
     if (res.status === 401) {

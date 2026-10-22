@@ -20,7 +20,7 @@ from .seed import seed
 from .ml.model_loader import load_metadata
 from .services.burnout_service import (
     ensure_trained, predict_for_employee, recalculate_employee_burnout,
-    get_employee_core_metrics
+    get_employee_core_metrics, get_employees_core_metrics_batch
 )
 from .services.semantic_service import analyze_communication
 from .services.attendance_service import (
@@ -1658,8 +1658,9 @@ def mgr_dash(user: User = Depends(require_role("manager", "hr")), db: Session = 
     low_count = 0
     warnings = []
 
+    u_core = get_employees_core_metrics_batch(db, team_members)
     for m in team_members:
-        core = get_employee_core_metrics(db, m)
+        core = u_core.get(m.id) or get_employee_core_metrics(db, m)
         score = core["burnout_score"] if core["burnout_score"] is not None else 50
         status_str = core["risk_level"].title() if core["risk_level"] else "Moderate"
 
@@ -2184,41 +2185,21 @@ def mgr_trends(
 # HR DASHBOARD & ANALYTICS APIS
 # ===============================================================
 
-@app.get("/api/hr/dashboard")
-def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_db)):
-    users = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
-
-    # Calculate authoritative core metrics for all monitored users
-    u_core = {u.id: get_employee_core_metrics(db, u) for u in users}
-
+def calculate_department_stats(db: Session, users: list[User], u_core: dict[int, dict]) -> list[dict]:
     dept_records = db.query(Department).all()
     dept_names = [d.name for d in dept_records]
     user_depts = [u.department for u in users if u.department]
     all_depts = list(dict.fromkeys(dept_names + user_depts))
 
     dept_stats = []
-    high_count = 0
-    mod_count = 0
-    low_count = 0
-
-    for u in users:
-        core = u_core[u.id]
-        s = core["burnout_score"] if core["burnout_score"] is not None else 50
-        if s >= 70:
-            high_count += 1
-        elif s < 40:
-            low_count += 1
-        else:
-            mod_count += 1
-
     for d in all_depts:
         dept_users = [u for u in users if u.department == d]
         if not dept_users:
             continue
-        scores = [u_core[u.id]["burnout_score"] for u in dept_users if u_core[u.id]["burnout_score"] is not None]
-        wl_scores = [u_core[u.id]["workload_score"] for u in dept_users if u_core[u.id]["workload_score"] is not None]
-        st_scores = [u_core[u.id]["stress_score"] for u in dept_users if u_core[u.id]["stress_score"] is not None]
-        ot_scores = [u_core[u.id]["overtime_hours_num"] for u in dept_users if u_core[u.id]["overtime_hours_num"] is not None]
+        scores = [u_core[u.id]["burnout_score"] for u in dept_users if u.id in u_core and u_core[u.id]["burnout_score"] is not None]
+        wl_scores = [u_core[u.id]["workload_score"] for u in dept_users if u.id in u_core and u_core[u.id]["workload_score"] is not None]
+        st_scores = [u_core[u.id]["stress_score"] for u in dept_users if u.id in u_core and u_core[u.id]["stress_score"] is not None]
+        ot_scores = [u_core[u.id]["overtime_hours_num"] for u in dept_users if u.id in u_core and u_core[u.id]["overtime_hours_num"] is not None]
 
         avg_s = int(round(sum(scores) / len(scores))) if scores else 50
         avg_wl = int(round(sum(wl_scores) / len(wl_scores))) if wl_scores else 50
@@ -2232,17 +2213,12 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
             "stress": avg_st,
             "overtime": avg_ot,
         })
+    return dept_stats
 
-    total = len(users)
-    dist = [
-        {"name": "High", "value": high_count, "fill": "#ef4444"},
-        {"name": "Moderate", "value": mod_count, "fill": "#f59e0b"},
-        {"name": "Low", "value": low_count, "fill": "#22c55e"},
-    ]
 
-    # Calculate real monthly trends for past 6 months
+def calculate_hr_trends(db: Session, users: list[User], u_core: dict[int, dict]) -> list[dict]:
     today = date.today()
-    trend = []
+    month_ranges = []
     for m_offset in range(5, -1, -1):
         year = today.year
         month = today.month - m_offset
@@ -2254,25 +2230,47 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
             m_end = date(year + 1, 1, 1) - timedelta(days=1)
         else:
             m_end = date(year, month + 1, 1) - timedelta(days=1)
-        m_label = m_start.strftime("%b")
+        month_ranges.append((m_start, m_end, m_start.strftime("%b")))
 
-        m_preds = db.query(Prediction).filter(
-            Prediction.prediction_date >= datetime.combine(m_start, time.min),
-            Prediction.prediction_date <= datetime.combine(m_end, time.max)
-        ).all()
-        valid_b = [p.burnout_score for p in m_preds if p.burnout_score is not None]
-        avg_b = round(sum(valid_b) / len(valid_b)) if valid_b else round(sum(u_core[u.id]["burnout_score"] or 50 for u in users) / max(len(users), 1))
+    overall_start = month_ranges[0][0]
+    overall_end = month_ranges[-1][1]
 
-        m_atts = db.query(Attendance).filter(
-            Attendance.date >= m_start,
-            Attendance.date <= m_end
-        ).all()
+    # Bulk fetch 6-month historical dataset in 3 bounded queries instead of 18 sequential round-trips
+    all_preds = db.query(Prediction).filter(
+        Prediction.prediction_date >= datetime.combine(overall_start, time.min),
+        Prediction.prediction_date <= datetime.combine(overall_end, time.max)
+    ).all()
+
+    all_atts = db.query(Attendance).filter(
+        Attendance.date >= overall_start,
+        Attendance.date <= overall_end
+    ).all()
+
+    all_surveys = db.query(Survey).filter(
+        Survey.date >= overall_start,
+        Survey.date <= overall_end
+    ).all()
+
+    valid_cores_b = [u_core[u.id]["burnout_score"] for u in users if u.id in u_core and u_core[u.id]["burnout_score"] is not None]
+    valid_cores_st = [u_core[u.id]["stress_score"] for u in users if u.id in u_core and u_core[u.id]["stress_score"] is not None]
+    valid_cores_wl = [u_core[u.id]["workload_score"] for u in users if u.id in u_core and u_core[u.id]["workload_score"] is not None]
+
+    default_b = round(sum(valid_cores_b) / len(valid_cores_b)) if valid_cores_b else 50
+    default_st = round(sum(valid_cores_st) / len(valid_cores_st)) if valid_cores_st else 50
+    default_wl = round(sum(valid_cores_wl) / len(valid_cores_wl)) if valid_cores_wl else 50
+
+    trend = []
+    for m_start, m_end, m_label in month_ranges:
+        start_dt = datetime.combine(m_start, time.min)
+        end_dt = datetime.combine(m_end, time.max)
+
+        valid_b = [p.burnout_score for p in all_preds if p.prediction_date and start_dt <= p.prediction_date <= end_dt and p.burnout_score is not None]
+        avg_b = round(sum(valid_b) / len(valid_b)) if valid_b else default_b
+
+        m_atts = [a for a in all_atts if a.date and m_start <= a.date <= m_end]
         ot_hours = round(sum((a.overtime_minutes or 0) for a in m_atts) / max(len(m_atts), 1) / 60, 1) if m_atts else 0.0
 
-        m_surveys = db.query(Survey).filter(
-            Survey.date >= m_start,
-            Survey.date <= m_end
-        ).all()
+        m_surveys = [s for s in all_surveys if s.date and m_start <= s.date <= m_end]
         st_list = []
         wl_list = []
         for s in m_surveys:
@@ -2289,8 +2287,8 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
                     wl_list.append(float(wl) * 20.0)
                 except Exception:
                     pass
-        avg_st = round(sum(st_list) / len(st_list)) if st_list else round(sum(u_core[u.id]["stress_score"] or 50 for u in users) / max(len(users), 1))
-        avg_wl = round(sum(wl_list) / len(wl_list)) if wl_list else round(sum(u_core[u.id]["workload_score"] or 50 for u in users) / max(len(users), 1))
+        avg_st = round(sum(st_list) / len(st_list)) if st_list else default_st
+        avg_wl = round(sum(wl_list) / len(wl_list)) if wl_list else default_wl
 
         trend.append({
             "month": m_label,
@@ -2299,6 +2297,40 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
             "workload": avg_wl,
             "overtime": ot_hours,
         })
+    return trend
+
+
+@app.get("/api/hr/dashboard")
+def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_db)):
+    users = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
+
+    # Calculate authoritative core metrics in batch (5 bulk queries total)
+    u_core = get_employees_core_metrics_batch(db, users)
+
+    high_count = 0
+    mod_count = 0
+    low_count = 0
+
+    for u in users:
+        core = u_core.get(u.id)
+        s = core["burnout_score"] if (core and core["burnout_score"] is not None) else 50
+        if s >= 70:
+            high_count += 1
+        elif s < 40:
+            low_count += 1
+        else:
+            mod_count += 1
+
+    dept_stats = calculate_department_stats(db, users, u_core)
+
+    total = len(users)
+    dist = [
+        {"name": "High", "value": high_count, "fill": "#ef4444"},
+        {"name": "Moderate", "value": mod_count, "fill": "#f59e0b"},
+        {"name": "Low", "value": low_count, "fill": "#22c55e"},
+    ]
+
+    trend = calculate_hr_trends(db, users, u_core)
 
     return {
         "hr": {"name": user.name},
@@ -2314,13 +2346,27 @@ def hr_dash(user: User = Depends(require_role("hr")), db: Session = Depends(get_
 
 @app.get("/api/hr/trends")
 def hr_trends(user: User = Depends(require_role("hr")), db: Session = Depends(get_db)):
-    dash = hr_dash(user, db)
+    users = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
+    u_core = get_employees_core_metrics_batch(db, users)
+    trend = calculate_hr_trends(db, users, u_core)
+    dept_stats = calculate_department_stats(db, users, u_core)
+
+    high_count = sum(1 for u in users if (u_core.get(u.id) or {}).get("burnout_score", 50) >= 70)
+    low_count = sum(1 for u in users if (u_core.get(u.id) or {}).get("burnout_score", 50) < 40)
+    mod_count = len(users) - high_count - low_count
+
+    dist = [
+        {"name": "High", "value": high_count, "fill": "#ef4444"},
+        {"name": "Moderate", "value": mod_count, "fill": "#f59e0b"},
+        {"name": "Low", "value": low_count, "fill": "#22c55e"},
+    ]
+
     return {
-        "trend": dash["trend"],
-        "trends": dash["trend"],
-        "departments": dash["departments"],
-        "totalEmployees": dash["totalEmployees"],
-        "dist": dash["dist"],
+        "trend": trend,
+        "trends": trend,
+        "departments": dept_stats,
+        "totalEmployees": len(users),
+        "dist": dist,
     }
 
 
@@ -2332,9 +2378,11 @@ def hr_emp(user: User = Depends(require_role("hr")), db: Session = Depends(get_d
     today_atts = db.query(Attendance).filter(Attendance.date == today).all()
     att_by_user = {a.employee_id: a for a in today_atts}
 
+    u_core = get_employees_core_metrics_batch(db, users)
+
     out = []
     for u in users:
-        core = get_employee_core_metrics(db, u)
+        core = u_core.get(u.id) or {}
         att = att_by_user.get(u.id)
         out.append({
             "id": u.employee_code or f"E{u.id}",
@@ -2344,8 +2392,8 @@ def hr_emp(user: User = Depends(require_role("hr")), db: Session = Depends(get_d
             "dept": u.department or "Engineering",
             "role": u.role.title() if u.role else "Employee",
             "status": "Active",
-            "burnout": core["burnout_score"] if core["burnout_score"] is not None else 50,
-            "workload": core["workload_score"] if core["workload_score"] is not None else 50,
+            "burnout": core.get("burnout_score") if core.get("burnout_score") is not None else 50,
+            "workload": core.get("workload_score") if core.get("workload_score") is not None else 50,
             "lastCheckIn": att.check_in if (att and att.check_in) else "—",
         })
     return out
@@ -2353,8 +2401,9 @@ def hr_emp(user: User = Depends(require_role("hr")), db: Session = Depends(get_d
 
 @app.get("/api/hr/departments")
 def hr_dept(user: User = Depends(require_role("hr")), db: Session = Depends(get_db)):
-    dash = hr_dash(user, db)
-    return dash["departments"]
+    users = db.query(User).filter(User.role.in_(["employee", "manager"])).all()
+    u_core = get_employees_core_metrics_batch(db, users)
+    return calculate_department_stats(db, users, u_core)
 
 
 @app.get("/api/hr/model-performance")

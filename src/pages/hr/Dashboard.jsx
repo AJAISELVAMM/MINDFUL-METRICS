@@ -7,15 +7,35 @@ import DepartmentRiskChart from '../../components/charts/DepartmentRiskChart'
 import BurnoutTrendChart from '../../components/charts/BurnoutTrendChart'
 import { getHRDashboard } from '../../services/api'
 import LoadingSkeleton from '../../components/common/LoadingSkeleton'
+import ErrorState from '../../components/common/ErrorState'
 
 export default function HRDashboard() {
   const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  function loadDashboard() {
+    setLoading(true)
+    setError('')
+    getHRDashboard()
+      .then((res) => {
+        setData(res)
+        setError('')
+      })
+      .catch((err) => {
+        setError(err.message || 'Could not load organization dashboard.')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
 
   useEffect(() => {
-    getHRDashboard().then(setData)
+    loadDashboard()
   }, [])
 
-  if (!data) return <LoadingSkeleton />
+  if (loading && !data) return <LoadingSkeleton />
+  if (error && !data) return <ErrorState message={error} onRetry={loadDashboard} />
 
   const total = data.totalEmployees || 0
   const high = data.highRisk || 0

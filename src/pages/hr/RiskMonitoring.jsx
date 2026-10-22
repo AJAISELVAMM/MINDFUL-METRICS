@@ -2,20 +2,33 @@ import { useEffect, useState, useMemo } from 'react'
 import { getEmployees } from '../../services/api'
 import RiskBadge from '../../components/common/RiskBadge'
 import LoadingSkeleton from '../../components/common/LoadingSkeleton'
+import ErrorState from '../../components/common/ErrorState'
 import EmployeeDetailDrawer from '../../components/common/EmployeeDetailDrawer'
 
 export default function RiskMonitoring() {
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const [dept, setDept] = useState('All')
   const [level, setLevel] = useState('High')
   const [sel, setSel] = useState(null)
 
-  useEffect(() => {
+  function loadRiskData() {
+    setLoading(true)
+    setError('')
     getEmployees()
-      .then((data) => setEmployees(data || []))
-      .catch(() => setEmployees([]))
+      .then((data) => {
+        setEmployees(data || [])
+        setError('')
+      })
+      .catch((err) => {
+        setError(err.message || 'Could not load risk monitoring data.')
+      })
       .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    loadRiskData()
   }, [])
 
   const deptList = useMemo(() => {
@@ -24,7 +37,8 @@ export default function RiskMonitoring() {
     return ['All', ...Array.from(new Set([...base, ...fromRows]))]
   }, [employees])
 
-  if (loading) return <LoadingSkeleton rows={2} />
+  if (loading && !employees.length) return <LoadingSkeleton rows={2} />
+  if (error && !employees.length) return <ErrorState message={error} onRetry={loadRiskData} />
 
   const filtered = employees.filter((e) => {
     const l = e.burnout >= 70 ? 'High' : e.burnout >= 40 ? 'Moderate' : 'Low'

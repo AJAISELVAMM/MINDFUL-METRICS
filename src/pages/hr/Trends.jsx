@@ -18,7 +18,11 @@ export default function OrgTrends() {
 
   const count = f === '1 Month' ? 1 : f === '3 Months' ? 3 : f === '6 Months' ? 6 : 12
   const base = liveData && liveData.length > 0 ? liveData : orgTrend
-  const trendData = Array.from({ length: count }, (_, i) => ({ ...base[i % base.length], month: `M${i + 1}` }))
+  const sliceData = base.length >= count ? base.slice(-count) : base
+  const trendData = sliceData.map((item, i) => ({
+    ...item,
+    month: item.month || `M${i + 1}`,
+  }))
   return (
     <div className="page-stack fade-in">
       <div className="flex gap-2">{['1 Month', '3 Months', '6 Months', '1 Year'].map((x) => (

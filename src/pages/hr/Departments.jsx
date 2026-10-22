@@ -4,19 +4,33 @@ import DepartmentRiskChart from '../../components/charts/DepartmentRiskChart'
 import { getDepartments } from '../../services/api'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import LoadingSkeleton from '../../components/common/LoadingSkeleton'
+import ErrorState from '../../components/common/ErrorState'
 
 export default function Departments() {
   const [depts, setDepts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  function loadDepts() {
+    setLoading(true)
+    setError('')
+    getDepartments()
+      .then((d) => {
+        setDepts(d || [])
+        setError('')
+      })
+      .catch((err) => {
+        setError(err.message || 'Could not load departments.')
+      })
+      .finally(() => setLoading(false))
+  }
 
   useEffect(() => {
-    getDepartments()
-      .then((d) => setDepts(d || []))
-      .catch(() => setDepts([]))
-      .finally(() => setLoading(false))
+    loadDepts()
   }, [])
 
-  if (loading) return <LoadingSkeleton rows={2} />
+  if (loading && !depts.length) return <LoadingSkeleton rows={2} />
+  if (error && !depts.length) return <ErrorState message={error} onRetry={loadDepts} />
 
   return (
     <div className="page-stack fade-in">

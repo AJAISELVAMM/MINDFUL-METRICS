@@ -4,11 +4,33 @@ import DataTable from '../../components/common/DataTable'
 import ChartCard from '../../components/common/ChartCard'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import LoadingSkeleton from '../../components/common/LoadingSkeleton'
+import ErrorState from '../../components/common/ErrorState'
 
 export default function ModelPerformance() {
   const [data, setData] = useState(null)
-  useEffect(() => { getModelPerformance().then(setData) }, [])
-  if (!data) return <LoadingSkeleton rows={3} />
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+
+  function loadPerf() {
+    setLoading(true)
+    setError('')
+    getModelPerformance()
+      .then((res) => {
+        setData(res)
+        setError('')
+      })
+      .catch((err) => {
+        setError(err.message || 'Could not load model performance.')
+      })
+      .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    loadPerf()
+  }, [])
+
+  if (loading && !data) return <LoadingSkeleton rows={3} />
+  if (error && !data) return <ErrorState message={error} onRetry={loadPerf} />
   const cells = (data.confusion || []).flat()
   return (
     <div className="page-stack fade-in">

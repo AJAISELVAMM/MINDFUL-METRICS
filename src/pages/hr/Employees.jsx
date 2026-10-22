@@ -3,10 +3,14 @@ import DataTable from '../../components/common/DataTable'
 import RiskBadge from '../../components/common/RiskBadge'
 import StatusBadge from '../../components/common/StatusBadge'
 import EmployeeDetailDrawer from '../../components/common/EmployeeDetailDrawer'
+import LoadingSkeleton from '../../components/common/LoadingSkeleton'
+import ErrorState from '../../components/common/ErrorState'
 import { getEmployees } from '../../services/api'
 
 export default function Employees() {
   const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
   const [q, setQ] = useState('')
   const [dept, setDept] = useState('All')
   const [risk, setRisk] = useState('All')
@@ -14,10 +18,24 @@ export default function Employees() {
   const [sel, setSel] = useState(null)
   const pageSize = 6
 
-  useEffect(() => {
+  function loadEmployees() {
+    setLoading(true)
+    setError('')
     getEmployees()
-      .then((data) => setRows(Array.isArray(data) ? data : []))
-      .catch(() => setRows([]))
+      .then((data) => {
+        setRows(Array.isArray(data) ? data : [])
+        setError('')
+      })
+      .catch((err) => {
+        setError(err.message || 'Could not load employees.')
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+  useEffect(() => {
+    loadEmployees()
   }, [])
 
   const deptList = useMemo(() => {
@@ -37,6 +55,9 @@ export default function Employees() {
     return okQ && okD && okR
   }), [rows, q, dept, risk])
   const slice = filtered.slice(page * pageSize, page * pageSize + pageSize)
+
+  if (loading && !rows.length) return <LoadingSkeleton rows={3} />
+  if (error && !rows.length) return <ErrorState message={error} onRetry={loadEmployees} />
 
   return (
     <div className="card p-5 fade-in">

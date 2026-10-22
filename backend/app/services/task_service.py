@@ -1126,7 +1126,7 @@ def hr_request_task_changes(db: Session, task_id: int, hr_user: User, notes: str
 def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
     check_and_block_overdue_tasks(db)
 
-    from .burnout_service import get_employee_core_metrics
+    from .burnout_service import get_employee_core_metrics, get_employees_core_metrics_batch
 
     if manager_user.role == "hr":
         team_members = db.query(User).filter(User.role == "employee").all()
@@ -1143,6 +1143,8 @@ def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
         )
         if not team_members:
             team_members = db.query(User).filter(User.department == manager_user.department, User.role == "employee").all()
+
+    u_core = get_employees_core_metrics_batch(db, team_members)
 
     rows = []
     all_team_tasks = []
@@ -1187,7 +1189,7 @@ def get_team_workload_metrics(db: Session, manager_user: User) -> dict:
                 "updated_at": t.updated_at.strftime("%d %b %Y, %I:%M %p") if t.updated_at else "—",
             })
 
-        m_metrics = get_employee_core_metrics(db, m)
+        m_metrics = u_core.get(m.id) or get_employee_core_metrics(db, m)
         rows.append({
             "id": m.employee_code or f"E{m.id}",
             "raw_id": m.id,

@@ -5,23 +5,35 @@ import AttendanceChart from '../../components/charts/AttendanceChart'
 import { getDepartments, getEmployees } from '../../services/api'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import LoadingSkeleton from '../../components/common/LoadingSkeleton'
+import ErrorState from '../../components/common/ErrorState'
 
 export default function Workforce() {
   const [depts, setDepts] = useState([])
   const [employees, setEmployees] = useState([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  useEffect(() => {
+  function loadWorkforce() {
+    setLoading(true)
+    setError('')
     Promise.all([getDepartments(), getEmployees()])
       .then(([d, e]) => {
         setDepts(d || [])
         setEmployees(e || [])
+        setError('')
       })
-      .catch(() => {})
+      .catch((err) => {
+        setError(err.message || 'Could not load workforce data.')
+      })
       .finally(() => setLoading(false))
+  }
+
+  useEffect(() => {
+    loadWorkforce()
   }, [])
 
-  if (loading) return <LoadingSkeleton rows={2} />
+  if (loading && !depts.length && !employees.length) return <LoadingSkeleton rows={2} />
+  if (error && !depts.length && !employees.length) return <ErrorState message={error} onRetry={loadWorkforce} />
 
   const hoursWeek = [
     { day: 'Mon', hours: 9.1, ot: 1.1 },
